@@ -405,7 +405,7 @@ export default function App() {
                             {job.tags.map((t) => (
                               <li
                                 key={t}
-                                className="rounded-md px-3 py-1 text-xs font-medium bg-[#f1d3ff] text-black"
+                                className="rounded-md px-3 py-1 text-xs font-medium bg-[#f1d3ff] text-black transition-transform duration-200 group-hover:-translate-y-0.5"
                               >
                                 {t}
                               </li>
@@ -526,7 +526,8 @@ export default function App() {
                                   key={t}
                                   className="rounded-md px-3 py-1 text-xs font-medium
                      bg-[#f1d3ff] text-[#000000] ring-1 ring-[#f1d3ff]/20
-                     dark:bg-[#f1d3ff] dark:text-[#000000] dark:ring-[#f1d3ff]/20"
+                     dark:bg-[#f1d3ff] dark:text-[#000000] dark:ring-[#f1d3ff]/20
+                     transition-transform duration-200 group-hover:-translate-y-0.5"
                                 >
                                   {t}
                                 </li>
