@@ -10,6 +10,7 @@ import dmoj from "./assets/dmoj.png";
 import freaky from "./assets/freaky.png";
 import smashspeed from "./assets/smashspeed.png";
 import PixelTrail from "./components/PixelTrail";
+import resume from "./assets/Resume.pdf";
 
 function Reveal({ children, className = "", mode = "transform" }) {
   const ref = useRef(null);
@@ -288,6 +289,23 @@ export default function App() {
                 >
                   <Instagram className="h-5 w-5" />
                 </a>
+                {/* ===== Resume Button (opens PDF viewer in a new tab) ===== */}
+                {/* ===== Resume Button (opens PDF viewer in a new tab) ===== */}
+<a
+  href={resume}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Resume"
+  className="group ml-2 inline-flex items-center gap-1.5 rounded-md border-black/20 px-3 py-1.5 text-sm font-medium transition-colors transition-transform duration-200 hover:-translate-y-0.5 hover:text-[#e19fff] hover:border-[#e19fff] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#515A47]"
+>
+  <span>Resume</span>
+  <ArrowUpRight
+    className="h-4 w-4 translate-y-[1px] transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#e19fff]"
+    aria-hidden="true"
+  />
+</a>
+
+                {/* ======================================================== */}
               </div>
             </div>
           </aside>
