@@ -298,7 +298,7 @@ export default function App() {
   aria-label="Resume"
   className="group ml-2 inline-flex items-center gap-1.5 rounded-md border-black/20 px-3 py-1.5 text-sm font-medium transition-colors transition-transform duration-200 hover:-translate-y-0.5 hover:text-[#e19fff] hover:border-[#e19fff] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#515A47]"
 >
-  <span>Resume</span>
+  <span>Résumé</span>
   <ArrowUpRight
     className="h-4 w-4 translate-y-[1px] transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#e19fff]"
     aria-hidden="true"
