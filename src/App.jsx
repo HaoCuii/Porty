@@ -11,6 +11,9 @@ import freaky from "./assets/freaky.png";
 import smashspeed from "./assets/smashspeed.png";
 import PixelTrail from "./components/PixelTrail";
 import resume from "./assets/Resume.pdf";
+import { FaXTwitter } from "react-icons/fa6";
+
+
 
 function Reveal({ children, className = "", mode = "transform" }) {
   const ref = useRef(null);
@@ -274,13 +277,6 @@ export default function App() {
                   <Github className="h-5 w-5" />
                 </a>
                 <a
-                  href="mailto:decubingexpert@gmail.com"
-                  aria-label="Email"
-                  className="transition-colors hover:text-[#e19fff] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#515A47] rounded"
-                >
-                  <Mail className="h-5 w-5" />
-                </a>
-                <a
                   href="https://www.instagram.com/hao_cuii/"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -289,8 +285,23 @@ export default function App() {
                 >
                   <Instagram className="h-5 w-5" />
                 </a>
-                {/* ===== Resume Button (opens PDF viewer in a new tab) ===== */}
-                {/* ===== Resume Button (opens PDF viewer in a new tab) ===== */}
+                <a
+                  href="https://x.com/HaoCuii"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  className="transition-colors hover:text-[#e19fff] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#515A47] rounded"
+                >
+                  <FaXTwitter className="h-5 w-5" />
+                </a>
+                <a
+                  href="mailto:decubingexpert@gmail.com"
+                  aria-label="Email"
+                  className="transition-colors hover:text-[#e19fff] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#515A47] rounded"
+                >
+                  <Mail className="h-5 w-5" />
+                </a>
+  
 <a
   href={resume}
   target="_blank"
