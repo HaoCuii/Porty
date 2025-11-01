@@ -1,14 +1,15 @@
 // src/App.jsx
 import React, { useEffect, useRef, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
-import Profile from "./assets/Mugshot.jpg";
-import { Linkedin, Github, Mail, Instagram } from "lucide-react";
-import binit from "./assets/binit.png";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
+import { Linkedin, Github, Mail } from "lucide-react";
+import binit from "./assets/logo-binit.png";
 import workflow from "./assets/workflow.png";
-import conway from "./assets/conway.png";
+import conway from "./assets/conway.jpg";
 import dmoj from "./assets/dmoj.png";
 import freaky from "./assets/freaky.png";
-import smashspeed from "./assets/smashspeed.png";
+import smashspeed from "./assets/AppIcon.png";
+import fresco from "./assets/fresco.jpg";
+import cluely from "./assets/cluely.jpg";
 import PixelTrail from "./components/PixelTrail";
 import resume from "./assets/Resume.pdf";
 import { FaXTwitter } from "react-icons/fa6";
@@ -114,68 +115,90 @@ export default function App() {
       companyUrl: "https://smashspeed.ca/",
       role: "Smashspeed",
       subtitle: "Chief Technology Officer",
-      range: "2025 — Present",
+      range: "2025 — PRESENT",
       description:
-        "Executed an end-to-end port of the machine-learning shuttle tracker to React Native. Implemented a scalable serverless Firebase architecture (Auth, Firestore, Cloud Functions, Cloud Storage). Developed the marketing/product website with React + Tailwind, sustaining 10k+ monthly active users. Helped build the data pipeline using YOLOv5, curated and hand-annotated 13k+ images to reach 93% model accuracy. The platform sustained 21k+ downloads across 80+ countries, amplified by a viral social campaign with 2M+ reach.",
+        "40k+ downloads across 100+ countries, amplified by a viral social campaign with millions reached. Built an end-to-end React Native shuttle tracker with serverless Firebase architecture. Developed the marketing website with React + Tailwind, sustaining 10k+ monthly users. Built data pipeline using YOLOv5, curated 13k+ images reaching 93% model accuracy.",
       tags: [
         "TypeScript",
         "React Native",
         "Tailwind CSS",
         "Firebase",
         "Cloud Storage",
-        "YoloV5",
-        "Onnx",
+        "YOLOv5",
+        "ONNX",
       ],
     },
     {
       companyUrl: "https://furious-frogs-website.vercel.app/",
       role: "Furious Frogs",
       subtitle: "Developer",
-      range: "2024-Present",
+      range: "2024 — PRESENT",
       description:
-        "Co-designed the autonomous system that ranked #191/100,000 competitors in the 2024 season, built with Pedro Pathing and odometry for reliable multi-path routines. For 2025, implemented an auto-aim pipeline using AprilTag detection with OpenCV and tuned proportional-integral-derivative (PID) controllers for fast, stable targeting and shot alignment.",
-      tags: ["Java", "FTC SDK", "OpenCV", "PID Control", "Sensors", "Encoders"],
+        "Co-designed the autonomous system that ranked #191/100,000 competitors in the 2024 season. Implemented auto-aim pipeline using AprilTag detection with OpenCV and tuned PID controllers for fast, stable targeting.",
+      tags: ["Java", "FTC SDK", "OpenCV", "PID Control", "AprilTag"],
     },
   ];
 
   const projects = [
     {
       name: "Smashspeed",
-      text: "An AI-powered badminton tracker that detects shots, estimates smash speed in real time, and visualizes your improvement with session summaries and trend charts. 21k downloads across 80+ countries, amplified by a viral social media campaign with 2M+ reach.",
+      brief: "AI-powered badminton tracker — 40k downloads across 100+ countries.",
+      text: "Detects shots, estimates smash speed in real time, and visualizes your improvement with session summaries and trend charts. Amplified by a viral social media campaign with millions reached.",
       link: "https://smashspeed.ca/",
       repo: "https://github.com/HaoCuii/smashspeed_rn",
     },
     {
       name: "Steve the Freakysaur",
-      text: "Won 1st place out of 124 participants and 50+ projects in BC’s largest high school hackathon. A Chrome Dino–style game controlled entirely using tongue detection through real-time facial segmentation. Prototyped in Pygame before being ported to Next.js with TypeScript for web play.",
+      brief: "Won 1st place at BC's largest high school hackathon — 160k+ impressions.",
+      text: "A Chrome Dino–style game controlled entirely using tongue detection through real-time facial segmentation. Prototyped in Pygame before being ported to Next.js with TypeScript for web play.",
       link: "https://haocuii.itch.io/steve-the-freakysaur",
       repo: "https://github.com/diwenne/freakysaur",
       tech: ["Python", "OpenCV", "Next.js", "TypeScript"],
     },
     {
+      name: "Architectural RAG",
+      brief: "RAG chatbot for architectural drawings — created for Fresco YC F24.",
+      text: "Preprocessed a vector pdf of the plan into a 300 DPI image, then ran multiple different passes of tesseract OCR over the regions of interests to convert the pdf to a json format.",
+      link: "#",
+      repo: "#",
+      tech: ["Python", "Tesseract OCR", "RAG", "Computer Vision"],
+    },
+    {
+      name: "Cluely Gaze Tracker",
+      brief: "Real-time gaze tracking at 15-30 FPS — 100ms latency on CPU only.",
+      text: "Lightweight, local-only gaze tracking prototype using webcam to infer eye/pupil position and head pose, classifying gaze direction with landmark detection and temporal smoothing.",
+      link: "#",
+      repo: "#",
+      tech: ["Python", "OpenCV", "Mediapipe", "Computer Vision"],
+    },
+    {
       name: "DMOJ Solutions",
-      text: "1 year of my life. Over 200 competitive programming problems ranging from trivial graph theory problems to baffling IOI ones. Seg-Tree, Bitmask DP, DSU, Convex Hull, I **** CP.",
+      brief: "200+ competitive programming problems — graph theory to IOI challenges.",
+      text: "1 year of my life. Seg-Tree, Bitmask DP, DSU, Convex Hull, and more advanced algorithms and data structures.",
       link: "https://dmoj.ca/user/haocuii",
       repo: "https://github.com/HaoCuii/DMOJ-Solutions",
       tech: ["C++", "Python", "Data Structures", "Algorithms"],
     },
     {
       name: "Conway's Game of Life",
-      text: "A take on Conway’s Game of Life using memoized cells and batched updates for smooth simulation on large grids, with controls for seeding, stepping, and speed. ",
+      brief: "Smooth simulation on large grids with memoized cells and batched updates.",
+      text: "A take on Conway's Game of Life with controls for seeding, stepping, and speed adjustments.",
       link: "https://conways-game-of-life-38hy.vercel.app/",
       repo: "https://github.com/HaoCuii/Conways-Game-Of-Life",
       tech: ["JavaScript", "React"],
     },
     {
       name: "WorkFlow",
-      text: "Collaborate with peers in real time. A clean, distraction-free UI lets you create rooms, track tasks, and see updates instantly. Powered by WebSockets for low-latency presence and Firebase for auth, data sync, and persistence.",
+      brief: "Real-time collaboration tool with WebSockets and Firebase.",
+      text: "A clean, distraction-free UI lets you create rooms, track tasks, and see updates instantly. Powered by WebSockets for low-latency presence and Firebase for auth, data sync, and persistence.",
       link: "https://www.yourworkflow.co/",
       repo: "https://github.com/HaoCuii/WorkFlow",
       tech: ["Websocket", "Firebase"],
     },
     {
       name: "Binit",
-      text: "LLM Wrapper = VC funding when? Reduce waste, dashboard, and leaderboard system that was created for NWHacks 2025.",
+      brief: "Waste reduction dashboard and leaderboard — NWHacks 2025.",
+      text: "LLM Wrapper = VC funding when? Built for NWHacks 2025 hackathon.",
       link: "https://www.bin-it.co/",
       repo: "https://github.com/HaoCuii/Binit",
     },
@@ -189,6 +212,8 @@ export default function App() {
     "Conway's Game of Life": conway,
     WorkFlow: workflow,
     Binit: binit,
+    "Architectural RAG": fresco,
+    "Cluely Gaze Tracker": cluely,
   };
 
   return (
@@ -277,15 +302,6 @@ export default function App() {
                   <Github className="h-5 w-5" />
                 </a>
                 <a
-                  href="https://www.instagram.com/hao_cuii/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Instagram"
-                  className="transition-colors hover:text-[#e19fff] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#515A47] rounded"
-                >
-                  <Instagram className="h-5 w-5" />
-                </a>
-                <a
                   href="https://x.com/HaoCuii"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -330,16 +346,16 @@ export default function App() {
                   playing badminton and programming.
                 </p>
 
-                <div className="max-w-prose text-neutral-700 text-lg space-y-2">
-                  <div className="font-semibold text-black">Stack</div>
-                  <ul className="list-disc pl-5 space-y-1 text-[15px] leading-7">
-                    <li><span className="font-medium text-black">Languages:</span> Python, C++, Java, Kotlin, TypeScript/JavaScript, HTML, CSS</li>
-                    <li><span className="font-medium text-black">Frontend:</span> React, Next.js, Vite, Tailwind</li>
-                    <li><span className="font-medium text-black">Mobile:</span> React Native, Expo</li>
-                    <li><span className="font-medium text-black">Backend:</span> Firebase, WebSocket, Node.js</li>
-                    <li><span className="font-medium text-black">ML:</span> OpenCV, PyTorch, NumPy, Tensorflow, ONNX, Pandas, YOLO, Mediapipe</li>
-                    <li><span className="font-medium text-black">Other:</span> Git, Figma, Vercel, Badminton :)</li>
-                  </ul>
+                <div className="max-w-prose text-neutral-700 leading-relaxed space-y-2">
+                  <p>
+                    <span className="font-medium text-black">Languages:</span> Python, C++, Java, Kotlin, TypeScript, JavaScript, HTML, CSS
+                  </p>
+                  <p>
+                    <span className="font-medium text-black">Framework & Tools:</span> React, Next.js, Vite, Tailwind, React Native, Expo, Firebase, WebSocket, Node.js, Git, Figma, Vercel, OpenAI, Gemini
+                  </p>
+                  <p>
+                    <span className="font-medium text-black">Machine Learning:</span> Tesseract OCR, OpenCV, PyTorch, NumPy, TensorFlow, YOLO, Mediapipe
+                  </p>
                 </div>
 
               </Reveal>
@@ -374,7 +390,7 @@ export default function App() {
                       />
 
                       {/* date (also reacts to hover) */}
-                      <div className="text-sm font-medium text-black]">
+                      <div className="text-xs font-medium text-black uppercase tracking-wider whitespace-nowrap">
                         {job.range}
                       </div>
 
@@ -433,120 +449,116 @@ export default function App() {
             {/* Projects Section */}
             <section id="projects" aria-label="Projects" className="scroll-mt-20">
               <Reveal className="space-y-6">
-                <div className="space-y-6">
+                <div className="space-y-3">
                   {projects.map((p, i) => {
+                    const [isExpanded, setIsExpanded] = useState(false);
                     const href = p.link || p.repo || "#";
-                    const img = imageByName[p.name]; // use imported image by project name
+                    const img = imageByName[p.name];
                     return (
-                      <a
+                      <div
                         key={i}
-                        href={href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="relative group grid items-stretch gap-4 rounded-2xl transition sm:grid-cols-[168px,1fr] p-3 -m-3"
+                        className="relative group p-3 -m-3"
                       >
-                        {/* subtle grey “glass” on hover (match Experience) */}
+                        {/* subtle grey "glass" on hover */}
                         <span
                           className="
                               pointer-events-none absolute inset-0
                               bg-neutral-900/5 dark:bg-white/5
                               opacity-0 transition-opacity duration-200
-                              group-hover:opacity-50
+                              group-hover:opacity-50 rounded-lg
                             "
                           aria-hidden="true"
                         />
 
-                        <div className="relative hidden sm:block w-[168px] h-[105px] overflow-hidden rounded-md">
-                          {img ? (
-                            <img
-                              src={img}
-                              alt={p.name}
-                              className="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
-                            />
-                          ) : (
-                            <div className="grid h-full w-full place-items-center text-xs text-neutral-300 bg-neutral-100">
-                              Preview
-                            </div>
-                          )}
-                          <div className="pointer-events-none absolute inset-0 rounded-lg ring-1 ring-neutral-200/60" />
-                        </div>
-
-                        {/* Right: content drives the height the image matches */}
-                        <div className="flex min-h-[7rem] flex-col justify-start">
-                          <div className="flex items-start justify-between">
-                            <h3
-                              className="
-                                text-lg font-semibold tracking-tight
-                                transition-transform duration-200
-                                group-hover:-translate-y-0.5
-                                group-hover:text-[#e19fff]
-                              "
-                            >
-                              <span className="inline-flex items-center gap-1.5">
-                                {p.name}
-                                <ArrowUpRight
-                                  className="
-                                    h-4 w-4 translate-y-[1px]
-                                    transition-all duration-200
-                                    group-hover:-translate-y-0.5 group-hover:translate-x-0.5
-                                    group-hover:text-[#e19fff]
-                                  "
-                                  aria-hidden="true"
-                                />
-                              </span>
-                            </h3>
-
-
-                            {/* GitHub icon on the right (opens repo in new tab) */}
-                            {p.repo && p.repo !== "#" && (
-                              <span
-                                role="button"
-                                tabIndex={0}
-                                aria-label="Open GitHub repository"
-                                className="ml-3 inline-flex items-center text-black hover:text-[#e19fff] transition-colors"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                                  window.open(p.repo, "_blank", "noopener,noreferrer");
-                                }}
-                                onKeyDown={(e) => {
-                                  if (e.key === "Enter" || e.key === " ") {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    window.open(p.repo, "_blank", "noopener,noreferrer");
-                                  }
-                                }}
-                              >
-                                <Github className="h-5 w-5" aria-hidden="true" />
-                              </span>
+                        <div className="relative flex items-center gap-4">
+                          {/* Square Logo */}
+                          <div className="relative w-12 h-12 overflow-hidden rounded-md flex-shrink-0">
+                            {img ? (
+                              <img
+                                src={img}
+                                alt={p.name}
+                                className="w-full h-full object-contain"
+                              />
+                            ) : (
+                              <div className="w-full h-full bg-neutral-100 flex items-center justify-center text-xs text-neutral-400">
+                                {p.name[0]}
+                              </div>
                             )}
                           </div>
 
-                          {p.text && (
-                            <p className="mt-1 text-[13px] leading-6 text-neutral-700">{p.text}</p>
-                          )}
+                          {/* Content */}
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2">
+                              <a
+                                href={href}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="flex items-center gap-1.5 group/link"
+                              >
+                                <h3 className="text-base font-semibold tracking-tight transition-colors group-hover/link:text-[#e19fff]">
+                                  {p.name}
+                                </h3>
+                                <ArrowUpRight
+                                  className="h-3.5 w-3.5 transition-all group-hover/link:text-[#e19fff] group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
+                                  aria-hidden="true"
+                                />
+                              </a>
 
-                          {typeof p.stars === "number" && (
-                            <div className="mt-2 text-sm text-neutral-600">★ {p.stars}</div>
-                          )}
-
-                          {Array.isArray(p.tech) && p.tech.length > 0 && (
-                            <ul className="mt-3 flex flex-wrap gap-2">
-                              {p.tech.map((t) => (
-                                <li
-                                  key={t}
-                                  className="rounded-md px-3 py-1 text-xs font-medium
-                     bg-[#f1d3ff] text-[#000000] ring-1 ring-[#f1d3ff]/20
-                     dark:bg-[#f1d3ff] dark:text-[#000000] dark:ring-[#f1d3ff]/20
-                     transition-transform duration-200 group-hover:-translate-y-0.5"
+                              {p.repo && p.repo !== "#" && (
+                                <a
+                                  href={p.repo}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  aria-label="GitHub repository"
+                                  className="text-black hover:text-[#e19fff] transition-colors"
+                                  onClick={(e) => e.stopPropagation()}
                                 >
-                                  {t}
-                                </li>
-                              ))}
-                            </ul>
-                          )}
+                                  <Github className="h-4 w-4" aria-hidden="true" />
+                                </a>
+                              )}
+
+                              <button
+                                onClick={() => setIsExpanded(!isExpanded)}
+                                className="ml-auto text-xs text-neutral-500 hover:text-black flex items-center gap-1 transition-colors"
+                              >
+                                {isExpanded ? "Less" : "More"}
+                                <ChevronDown
+                                  className={`h-3 w-3 transition-transform duration-200 ${
+                                    isExpanded ? "rotate-180" : ""
+                                  }`}
+                                />
+                              </button>
+                            </div>
+
+                            {/* Brief description - always visible */}
+                            <p className="text-sm text-neutral-700 mt-1">
+                              {p.brief}
+                            </p>
+
+                            {/* Expandable content */}
+                            {isExpanded && (
+                              <div className="mt-3 space-y-3 pt-3 border-t border-neutral-200">
+                                {p.text && (
+                                  <p className="text-sm text-neutral-700">{p.text}</p>
+                                )}
+
+                                {Array.isArray(p.tech) && p.tech.length > 0 && (
+                                  <ul className="flex flex-wrap gap-2">
+                                    {p.tech.map((t) => (
+                                      <li
+                                        key={t}
+                                        className="rounded-md px-3 py-1 text-xs font-medium bg-[#f1d3ff] text-black"
+                                      >
+                                        {t}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                )}
+                              </div>
+                            )}
+                          </div>
                         </div>
-                      </a>
+                      </div>
                     );
                   })}
                 </div>
