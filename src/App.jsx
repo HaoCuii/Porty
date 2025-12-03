@@ -11,7 +11,6 @@ import smashspeed from "./assets/AppIcon.png";
 import fresco from "./assets/fresco.jpg";
 import cluely from "./assets/cluely.jpg";
 import PixelTrail from "./components/PixelTrail";
-import resume from "./assets/Resume.pdf";
 import { FaXTwitter } from "react-icons/fa6";
 
 
@@ -319,7 +318,7 @@ export default function App() {
                 </a>
   
 <a
-  href={resume}
+  href="/Resume.pdf"
   target="_blank"
   rel="noopener noreferrer"
   aria-label="Resume"
