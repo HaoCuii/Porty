@@ -172,7 +172,7 @@ export default function App() {
     {
       name: "DMOJ Solutions",
       brief: "200+ competitive programming problems — graph theory to IOI challenges.",
-      text: "1 year of my life. Seg-Tree, Bitmask DP, DSU, Convex Hull, and more advanced algorithms and data structures.",
+      text: "2 years of my life. Seg-Tree, Bitmask DP, DSU, Convex Hull Trick, I **** cp.",
       link: "https://dmoj.ca/user/haocuii",
       repo: "https://github.com/HaoCuii/DMOJ-Solutions",
       tech: ["C++", "Python", "Data Structures", "Algorithms"],
@@ -373,7 +373,7 @@ export default function App() {
             <section id="about" aria-label="About" className="scroll-mt-20">
               <Reveal className="space-y-4">
                 <p className="max-w-prose text-neutral-700 text-lg">
-                  I'm a student in the IB Diploma Programme at Port Moody Secondary School, studying Computer Science and Mathematics AA Higher Level with a 4.0 GPA. Most of my free time goes into building things I want to use. In my free time I like playing badminton and programming.
+                  I'm a student in the IB Diploma Programme at Port Moody Secondary School. Most of my free time goes into building things that I want to use.
                 </p>
 
                 <div className="max-w-prose text-neutral-700 leading-relaxed space-y-2">
