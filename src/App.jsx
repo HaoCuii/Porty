@@ -1,6 +1,6 @@
 // src/App.jsx
 import React, { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, ChevronDown } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Palette } from "lucide-react";
 import { Linkedin, Github, Mail } from "lucide-react";
 import binit from "./assets/logo-binit.png";
 import workflow from "./assets/workflow.png";
@@ -64,6 +64,7 @@ const sections = [
 
 export default function App() {
   const [active, setActive] = useState("about");
+  const [accentColor, setAccentColor] = useState("#f1d3ff");
 
   useEffect(() => {
     const els = sections.map((s) => document.getElementById(s.id)).filter(Boolean);
@@ -111,30 +112,28 @@ export default function App() {
 
   const experience = [
     {
+      companyUrl: "https://www.magichour.ai/",
+      role: "Magic Hour",
+      subtitle: "Software Engineer Intern",
+      range: "NOV 2025 — PRESENT",
+      description:
+        "Prototyped and optimized end-to-end AI workflows, improving model generation latency by 15% using SageAttn2, FP16Fast, Teacache, and Torch Compile. Developed a data ingestion pipeline including a mobile TikTok scraper that bypasses SSL pinning with a custom MITM proxy, enabling collection of high-engagement video datasets.",
+    },
+    {
       companyUrl: "https://smashspeed.ca/",
       role: "Smashspeed",
       subtitle: "Chief Technology Officer",
-      range: "2025 — PRESENT",
+      range: "MAY 2025 — PRESENT",
       description:
-        "40k+ downloads across 100+ countries, amplified by a viral social campaign with millions reached. Built an end-to-end React Native shuttle tracker with serverless Firebase architecture. Developed the marketing website with React + Tailwind, sustaining 10k+ monthly users. Built data pipeline using YOLOv5, curated 13k+ images reaching 93% model accuracy.",
-      tags: [
-        "TypeScript",
-        "React Native",
-        "Tailwind CSS",
-        "Firebase",
-        "Cloud Storage",
-        "YOLOv5",
-        "ONNX",
-      ],
+        "40k+ downloads across 100+ countries, amplified by a viral social campaign with millions reached. Executed an end-to-end port of the machine-learning shuttle tracker to React Native. Implemented a scalable serverless Firebase architecture (Auth, Firestore, Cloud Functions, Cloud Storage). Developed the marketing and product website with React + Tailwind, sustaining 10k+ monthly active users. Helped build the data pipeline using YOLOv5, curated and annotated 13k+ images to reach 93% model accuracy.",
     },
     {
       companyUrl: "https://furious-frogs-website.vercel.app/",
       role: "Furious Frogs",
       subtitle: "Developer",
-      range: "2024 — PRESENT",
+      range: "SEPT 2024 — PRESENT",
       description:
-        "Co-designed the autonomous system that ranked #191/100,000 competitors in the 2024 season. Implemented auto-aim pipeline using AprilTag detection with OpenCV and tuned PID controllers for fast, stable targeting.",
-      tags: ["Java", "FTC SDK", "OpenCV", "PID Control", "AprilTag"],
+        "Co-designed the autonomous system that ranked #191/100,000 competitors in the 2024 season. Implemented an auto-aim pipeline using AprilTag detection with OpenCV and tuning PID controllers for fast, stable targeting and shot alignment.",
     },
   ];
 
@@ -224,12 +223,30 @@ export default function App() {
           trailSize={0.05}
           maxAge={200}
           interpolate={5}
-          color="#f1d3ff"
+          color={accentColor}
           gooeyFilter={{ id: "goo", strength: 9 }}
         />
       </div>
 
       <div className="relative bg-white text-black antialiased">
+        {/* Theme button in top right corner */}
+        <div className="fixed top-6 right-6 z-50">
+          <label className="relative cursor-pointer group">
+            <input
+              type="color"
+              value={accentColor}
+              onChange={(e) => setAccentColor(e.target.value)}
+              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+            />
+            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white transition-all duration-200 hover:scale-110">
+              <Palette
+                className="h-6 w-6 transition-all duration-200"
+                style={{ color: accentColor }}
+              />
+            </div>
+          </label>
+        </div>
+
         {/* The "relative" class was added here to create a stacking context for the content */}
         <div className="mx-auto grid min-h-[100svh] max-w-7xl grid-cols-1 gap-10 px-6 md:grid-cols-[0.9fr,1.1fr] lg:grid-cols-[0.9fr,1.1fr] lg:gap-16 lg:px-10">
           <aside className="md:sticky md:top-0 md:h-[100svh] py-10 lg:py-24 flex flex-col">
@@ -287,7 +304,9 @@ export default function App() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
-                  className="transition-colors hover:text-[#e19fff] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#515A47] rounded"
+                  className="transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#515A47] rounded"
+                  onMouseEnter={(e) => e.currentTarget.style.color = accentColor}
+                  onMouseLeave={(e) => e.currentTarget.style.color = ''}
                 >
                   <Linkedin className="h-5 w-5" />
                 </a>
@@ -296,7 +315,9 @@ export default function App() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub"
-                  className="transition-colors hover:text-[#e19fff] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#515A47] rounded"
+                  className="transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#515A47] rounded"
+                  onMouseEnter={(e) => e.currentTarget.style.color = accentColor}
+                  onMouseLeave={(e) => e.currentTarget.style.color = ''}
                 >
                   <Github className="h-5 w-5" />
                 </a>
@@ -305,28 +326,40 @@ export default function App() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Instagram"
-                  className="transition-colors hover:text-[#e19fff] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#515A47] rounded"
+                  className="transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#515A47] rounded"
+                  onMouseEnter={(e) => e.currentTarget.style.color = accentColor}
+                  onMouseLeave={(e) => e.currentTarget.style.color = ''}
                 >
                   <FaXTwitter className="h-5 w-5" />
                 </a>
                 <a
                   href="mailto:decubingexpert@gmail.com"
                   aria-label="Email"
-                  className="transition-colors hover:text-[#e19fff] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#515A47] rounded"
+                  className="transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#515A47] rounded"
+                  onMouseEnter={(e) => e.currentTarget.style.color = accentColor}
+                  onMouseLeave={(e) => e.currentTarget.style.color = ''}
                 >
                   <Mail className="h-5 w-5" />
                 </a>
-  
+
 <a
   href="/Resume.pdf"
   target="_blank"
   rel="noopener noreferrer"
   aria-label="Resume"
-  className="group ml-2 inline-flex items-center gap-1.5 rounded-md border-black/20 px-3 py-1.5 text-sm font-medium transition-colors transition-transform duration-200 hover:-translate-y-0.5 hover:text-[#e19fff] hover:border-[#e19fff] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#515A47]"
+  className="group ml-2 inline-flex items-center gap-1.5 rounded-md border-black/20 px-3 py-1.5 text-sm font-medium transition-all duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#515A47]"
+  onMouseEnter={(e) => {
+    e.currentTarget.style.color = accentColor;
+    e.currentTarget.style.borderColor = accentColor;
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.color = '';
+    e.currentTarget.style.borderColor = '';
+  }}
 >
   <span>Résumé</span>
   <ArrowUpRight
-    className="h-4 w-4 translate-y-[1px] transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#e19fff]"
+    className="h-4 w-4 translate-y-[1px] transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
     aria-hidden="true"
   />
 </a>
@@ -340,20 +373,18 @@ export default function App() {
             <section id="about" aria-label="About" className="scroll-mt-20">
               <Reveal className="space-y-4">
                 <p className="max-w-prose text-neutral-700 text-lg">
-                  I’m a student in the IB Diploma Programme at Port Moody Secondary School.
-                  Most of my free time goes into building things I want to use. In my free time I like
-                  playing badminton and programming.
+                  I'm a student in the IB Diploma Programme at Port Moody Secondary School, studying Computer Science and Mathematics AA Higher Level with a 4.0 GPA. Most of my free time goes into building things I want to use. In my free time I like playing badminton and programming.
                 </p>
 
                 <div className="max-w-prose text-neutral-700 leading-relaxed space-y-2">
                   <p>
-                    <span className="font-medium text-black">Languages:</span> Python, C++, Java, Kotlin, TypeScript, JavaScript, HTML, CSS
+                    <span className="font-medium text-black">Languages:</span> Python, C++, Java, Kotlin, TypeScript, JavaScript, HTML, CSS, Bash
                   </p>
                   <p>
-                    <span className="font-medium text-black">Framework & Tools:</span> React, Next.js, Vite, Tailwind, React Native, Expo, Firebase, WebSocket, Node.js, Git, Figma, Vercel, OpenAI, Gemini
+                    <span className="font-medium text-black">Frameworks:</span> React, Next.js, Node.js, Flask, Expo, React Native, Pandas, Tailwind
                   </p>
                   <p>
-                    <span className="font-medium text-black">Machine Learning:</span> Tesseract OCR, OpenCV, PyTorch, NumPy, TensorFlow, YOLO, Mediapipe
+                    <span className="font-medium text-black">Technologies:</span> Git, Docker, Google Cloud, Firebase, Nginx, OpenCV, TensorFlow, PyTorch, ONNX, CUDA, MongoDB
                   </p>
                 </div>
 
@@ -367,6 +398,30 @@ export default function App() {
                     <li
                       key={i}
                       className="relative group grid items-start gap-6 md:grid-cols-[0.40fr,1.65fr] p-3 -m-3"
+                      onMouseEnter={(e) => {
+                        const h3 = e.currentTarget.querySelector('h3');
+                        const arrow = e.currentTarget.querySelector('.arrow-icon');
+                        if (h3) {
+                          h3.style.color = accentColor;
+                          h3.style.textShadow = `0 0 20px ${accentColor}80`;
+                        }
+                        if (arrow) {
+                          arrow.style.color = accentColor;
+                          arrow.style.filter = `drop-shadow(0 0 8px ${accentColor}80)`;
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        const h3 = e.currentTarget.querySelector('h3');
+                        const arrow = e.currentTarget.querySelector('.arrow-icon');
+                        if (h3) {
+                          h3.style.color = '';
+                          h3.style.textShadow = '';
+                        }
+                        if (arrow) {
+                          arrow.style.color = '';
+                          arrow.style.filter = '';
+                        }
+                      }}
                     >
                       {/* clickable over the whole row */}
                       <a
@@ -399,20 +454,25 @@ export default function App() {
                           <h3
                             className="
                               text-xl font-semibold tracking-tight
-                              transition-transform duration-200
+                              transition-all duration-200
                               group-hover:-translate-y-0.5
-                              group-hover:text-[#e19fff]
                             "
+                            style={{
+                              transition: 'all 0.2s, text-shadow 0.2s'
+                            }}
                           >
                             {job.role}
                           </h3>
                           <ArrowUpRight
                             className="
+                              arrow-icon
                               h-4 w-4 translate-y-[2px]
-                              transition-transform duration-200
+                              transition-all duration-200
                               group-hover:-translate-y-0.5 group-hover:translate-x-0.5
-                              group-hover:text-[#e19fff]
                             "
+                            style={{
+                              transition: 'all 0.2s, filter 0.2s'
+                            }}
                             aria-hidden="true"
                           />
                         </header>
@@ -424,19 +484,6 @@ export default function App() {
                           <p className="text-sm leading-6 text-neutral-700">
                             {job.description}
                           </p>
-                        )}
-
-                        {Array.isArray(job.tags) && job.tags.length > 0 && (
-                          <ul className="mt-4 flex flex-wrap gap-2">
-                            {job.tags.map((t) => (
-                              <li
-                                key={t}
-                                className="rounded-md px-3 py-1 text-xs font-medium bg-[#f1d3ff] text-black transition-transform duration-200 group-hover:-translate-y-0.5"
-                              >
-                                {t}
-                              </li>
-                            ))}
-                          </ul>
                         )}
                       </div>
                     </li>
@@ -457,6 +504,30 @@ export default function App() {
                       <div
                         key={i}
                         className="relative group p-3 -m-3"
+                        onMouseEnter={(e) => {
+                          const h3 = e.currentTarget.querySelector('.project-title');
+                          const arrow = e.currentTarget.querySelector('.project-arrow');
+                          if (h3) {
+                            h3.style.color = accentColor;
+                            h3.style.textShadow = `0 0 20px ${accentColor}80`;
+                          }
+                          if (arrow) {
+                            arrow.style.color = accentColor;
+                            arrow.style.filter = `drop-shadow(0 0 8px ${accentColor}80)`;
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          const h3 = e.currentTarget.querySelector('.project-title');
+                          const arrow = e.currentTarget.querySelector('.project-arrow');
+                          if (h3) {
+                            h3.style.color = '';
+                            h3.style.textShadow = '';
+                          }
+                          if (arrow) {
+                            arrow.style.color = '';
+                            arrow.style.filter = '';
+                          }
+                        }}
                       >
                         {/* subtle grey "glass" on hover */}
                         <span
@@ -465,11 +536,11 @@ export default function App() {
                               bg-neutral-900/5 dark:bg-white/5
                               opacity-0 transition-opacity duration-200
                               group-hover:opacity-50 rounded-lg
-                            "
+                            "   
                           aria-hidden="true"
                         />
 
-                        <div className="relative flex items-center gap-4">
+                        <div className="relative flex items-start gap-4">
                           {/* Square Logo */}
                           <div className="relative w-12 h-12 overflow-hidden rounded-md flex-shrink-0">
                             {img ? (
@@ -494,11 +565,15 @@ export default function App() {
                                 rel="noreferrer"
                                 className="flex items-center gap-1.5 group/link"
                               >
-                                <h3 className="text-base font-semibold tracking-tight transition-colors group-hover/link:text-[#e19fff]">
+                                <h3
+                                  className="project-title text-base font-semibold tracking-tight transition-all"
+                                  style={{ transition: 'all 0.2s, text-shadow 0.2s' }}
+                                >
                                   {p.name}
                                 </h3>
                                 <ArrowUpRight
-                                  className="h-3.5 w-3.5 transition-all group-hover/link:text-[#e19fff] group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
+                                  className="project-arrow h-3.5 w-3.5 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                                  style={{ transition: 'all 0.2s, filter 0.2s' }}
                                   aria-hidden="true"
                                 />
                               </a>
@@ -509,7 +584,9 @@ export default function App() {
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   aria-label="GitHub repository"
-                                  className="text-black hover:text-[#e19fff] transition-colors"
+                                  className="text-black transition-colors"
+                                  onMouseEnter={(e) => e.currentTarget.style.color = accentColor}
+                                  onMouseLeave={(e) => e.currentTarget.style.color = ''}
                                   onClick={(e) => e.stopPropagation()}
                                 >
                                   <Github className="h-4 w-4" aria-hidden="true" />
@@ -546,7 +623,10 @@ export default function App() {
                                     {p.tech.map((t) => (
                                       <li
                                         key={t}
-                                        className="rounded-md px-3 py-1 text-xs font-medium bg-[#f1d3ff] text-black"
+                                        className="rounded-md px-3 py-1 text-xs font-medium text-black"
+                                        style={{
+                                          backgroundColor: `${accentColor}20`
+                                        }}
                                       >
                                         {t}
                                       </li>
@@ -572,7 +652,7 @@ export default function App() {
                     href="https://brittanychiang.com"
                     rel="noreferrer"
                     target="_blank"
-                    className=" text-neutral-800 hover:text-[#e19fff] font-medium underline"
+                    className=" text-neutral-800 hover:text-[#2596be] font-medium underline"
                   >
                     Brittany Chiang
                   </a>{" "}
