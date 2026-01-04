@@ -1,0 +1,24 @@
+{
+  "socials": [
+    {
+      "name": "LinkedIn",
+      "href": "https://www.linkedin.com/in/hao-cui-247101312/",
+      "icon": "linkedin"
+    },
+    {
+      "name": "GitHub",
+      "href": "https://github.com/HaoCuii",
+      "icon": "github"
+    },
+    {
+      "name": "X",
+      "href": "https://x.com/HaoCuii",
+      "icon": "x"
+    },
+    {
+      "name": "Email",
+      "href": "mailto:decubingexpert@gmail.com",
+      "icon": "mail"
+    }
+  ]
+}

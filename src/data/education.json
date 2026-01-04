@@ -1,0 +1,19 @@
+{
+  "education": [
+    {
+      "name": "Port Moody Secondary School",
+      "href": "https://www.sd43.bc.ca/school/portmoody/Pages/default.aspx",
+      "logo": "/img/pmss.png",
+      "positions": [
+        {
+          "title": "IB Diploma Programme",
+          "start": "Sep 2023",
+          "description": [
+            "4.0 GPA, studying Computer Science and Mathematics AA Higher Level.",
+            "Expected graduation: 2027."
+          ]
+        }
+      ]
+    }
+  ]
+}
