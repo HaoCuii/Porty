@@ -26,24 +26,6 @@
       ]
     },
     {
-      "name": "Cluely Gaze Tracker",
-      "description": "Real-time gaze tracking system that runs entirely on CPU at 15-30 FPS with 100ms latency. Uses webcam + landmark detection with temporal smoothing.",
-      "image": "/img/cluely.png",
-      "tags": [
-        "Python",
-        "OpenCV",
-        "Mediapipe",
-        "Machine Learning"
-      ],
-      "links": [
-        {
-          "name": "Company",
-          "href": "https://cluely.com/",
-          "icon": "globe"
-        }
-      ]
-    },
-    {
       "name": "Steve the Freakysaur",
       "description": "Control the Chrome Dino runner game with your tongue for freaky fun. Won 1st place at BC's largest high school hackathon — 160k+ impressions.",
       "image": "/img/freakysaur2.png",
@@ -109,6 +91,24 @@
           "name": "GitHub",
           "href": "https://github.com/HaoCuii/imgtodesmos",
           "icon": "github"
+        }
+      ]
+    },
+    {
+      "name": "Cluely Gaze Tracker",
+      "description": "Real-time gaze tracking system that runs entirely on CPU at 15-30 FPS with 100ms latency. Uses webcam + landmark detection with temporal smoothing.",
+      "image": "/img/cluely3.png",
+      "tags": [
+        "Python",
+        "OpenCV",
+        "Mediapipe",
+        "Machine Learning"
+      ],
+      "links": [
+        {
+          "name": "Company",
+          "href": "https://cluely.com/",
+          "icon": "globe"
         }
       ]
     },
