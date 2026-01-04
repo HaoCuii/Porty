@@ -17,22 +17,6 @@
       ]
     },
     {
-      "name": "Cluely",
-      "href": "https://cluely.com/",
-      "logo": "/img/cluely.png",
-      "positions": [
-        {
-          "title": "Machine Learning Engineer (Contract)",
-          "start": "Sep 2025",
-          "end": "Oct 2025",
-          "description": [
-            "Built a real-time gaze tracking system that runs entirely on CPU. Tracks head pose and eye position at 15-30 FPS with 100ms latency.",
-            "Used webcam + landmark detection with temporal smoothing to classify gaze direction. Outputs both a debug overlay and NDJSON stream for analytics."
-          ]
-        }
-      ]
-    },
-    {
       "name": "Smashspeed",
       "href": "https://smashspeed.ca/",
       "logo": "/img/smashspeed.png",
