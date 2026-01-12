@@ -1,7 +1,7 @@
 {
   "introduction": {
-    "greeting": "hi, i'm hao 👋",
-    "description": "CS student focused on fullstack web, mobile, and machine learning.",
+    "greeting": "hi, i'm eric 👋",
+    "description": "I'm a first-year at NYU Stern, double-majoring in Finance and Math, with a Philosophy minor. I'm from Vancouver, Canada and am obsessed with the world of business, especially banking and VC. Outside of the classroom, I'm a competitive badminton player, amateur poker player, and snowboard instructor!",
     "escalation": {
       "text": "Check out my",
       "linkText": "resume",

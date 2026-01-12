@@ -1,53 +1,62 @@
 import Experience from "@/components/Experience";
 import LinkWithIcon from "@/components/LinkWithIcon";
 import Projects from "@/components/Projects";
+import Skills from "@/components/Skills";
 import Socials from "@/components/Socials";
-import SwipeCards from "@/components/SwipeCards";
 import { Button } from "@/components/ui/Button";
 import {
   ArrowRightIcon,
   FileDown,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
-import homeContent from "@/data/home.json";
-
-const TED_BIRTH_YEAR = 2009;
 const LIMIT = 2; // max show 2
 
 export default async function Home() {
-  const currentAge = new Date().getFullYear() - TED_BIRTH_YEAR;
-
   return (
     <article className="mt-8 flex flex-col gap-16 pb-16">
       <section className="flex flex-col items-start gap-8 md:flex-row-reverse md:items-center md:justify-between">
-        <SwipeCards className="md:mr-8" />
+        <div className="relative h-[320px] w-[240px] md:mr-8">
+          <Image
+            src="/eric_assets/formal_pic-removebg-preview.png"
+            alt="Eric Tao"
+            fill
+            className="rounded-lg object-contain object-top"
+            priority
+          />
+        </div>
 
-        <div className="flex max-w-[320px] flex-col sm:max-w-full">
+        <div className="flex flex-col sm:max-w-xl">
           <h1 className="title text-balance text-4xl sm:text-5xl">
-            {homeContent.introduction.greeting}
+            Hi, I&apos;m Eric! 👋
           </h1>
 
-          <p className="mt-2 whitespace-nowrap text-sm font-medium sm:text-base">
-            {currentAge}yo software engineer from Canada 🇨🇦
-          </p>
+          <div className="mt-6 space-y-4 text-sm sm:text-base">
+            <p>
+              I&apos;m a first-year at NYU <strong>Stern</strong>, double-majoring in <strong>Finance and Math</strong>, with a <strong>Philosophy</strong> minor.
+            </p>
 
-          <p className="mt-4 max-w-sm text-balance text-sm sm:text-base">
-            {homeContent.introduction.description}
-          </p>
+            <p>
+              I&apos;m from <strong>Vancouver, Canada</strong> and am obsessed with the world of business, especially banking and VC.
+            </p>
 
-          <p className="mt-1 text-xs font-light">
-            {homeContent.introduction.escalation.text}&nbsp;
+            <p>
+              Outside of the classroom, I&apos;m a competitive <strong>badminton</strong> player, amateur <strong>poker</strong> player, and <strong>snowboard</strong> instructor!
+            </p>
+          </div>
+
+          <p className="mt-4 text-xs font-light">
+            Check out my&nbsp;
             <Link
-              href={homeContent.escalationLink.href}
+              href="/resume.pdf"
               target="_blank"
               className="link font-semibold underline"
-              title={homeContent.escalationLink.title}
+              title="Resume"
             >
-              {homeContent.introduction.escalation.linkText}
+              resume
             </Link>
-            &nbsp;
-            {homeContent.introduction.escalation.suffix}
+            &nbsp;for more details.
           </p>
 
           <section className="mt-6 flex flex-wrap items-center gap-4">
@@ -75,6 +84,11 @@ export default async function Home() {
           />
         </div>
         <Projects limit={LIMIT} />
+      </section>
+
+      <section className="flex flex-col gap-8">
+        <h2 className="title text-2xl sm:text-3xl">my skills</h2>
+        <Skills />
       </section>
     </article>
   );

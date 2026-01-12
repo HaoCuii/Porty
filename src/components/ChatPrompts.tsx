@@ -6,40 +6,35 @@ interface ChatPromptsProps {
 }
 
 const allPrompts = [
-  "Tell me about Hao's experience",
-  "What projects has Hao worked on?",
-  "What technologies does Hao use?",
-  "What is Hao's current role?",
-  "Tell me about Hao's skills",
-  "What companies has Hao worked at?",
+  "Tell me about Eric's experience",
+  "What projects has Eric worked on?",
+  "What is Eric studying?",
+  "Tell me about Eric's leadership roles",
+  "What clubs is Eric involved in?",
 
   // Portfolio & career
-  "What is Hao currently working on?",
-  "What kind of developer is Hao?",
-  "What problems does Hao like solving?",
-  "What areas is Hao strongest in?",
-  "What is Hao focusing on learning now?",
+  "What is Eric currently working on?",
+  "What kind of work does Eric do?",
+  "What areas is Eric interested in?",
+  "What is Eric focusing on learning now?",
 
-  // Projects & blog
-  "Which project best represents Hao's work?",
-  "What was the motivation behind Hao's projects?",
-  "What technical challenges has Hao written about?",
-  "What tools or frameworks does Hao frequently mention?",
-  "What has Hao built outside of work?",
+  // Projects & activities
+  "Which project best represents Eric's work?",
+  "What was the motivation behind Eric's projects?",
+  "What competitions has Eric participated in?",
+  "What organizations has Eric led?",
 
-  // Engineering approach
-  "How does Hao approach system design?",
-  "What does Hao care about in clean architecture?",
-  "How does Hao balance speed vs correctness?",
-  "What engineering principles does Hao follow?",
-  "What tradeoffs does Hao often discuss?",
+  // Business & finance focus
+  "What is Eric's investment experience?",
+  "What financial analysis has Eric done?",
+  "What is Eric's background in business?",
+  "What extracurriculars is Eric part of at NYU?",
 
   // Practical / conversational
   "What can you help me with?",
-  "Where should I start if I want to explore Hao's work?",
-  "What should I read to understand Hao's thinking?",
-  "Is Hao more backend or frontend focused?",
-  "How can I contact Hao?"
+  "Where should I start if I want to explore Eric's work?",
+  "What should I read to understand Eric's background?",
+  "How can I contact Eric?"
 ];
 
 function getRandomPrompts(prompts: string[], count: number): string[] {

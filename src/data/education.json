@@ -1,16 +1,31 @@
 {
   "education": [
     {
-      "name": "Port Moody Secondary School",
-      "href": "https://www.sd43.bc.ca/school/portmoody/Pages/default.aspx",
-      "logo": "/img/pmss.png",
+      "name": "New York University, Leonard N. Stern School of Business",
+      "href": "https://www.stern.nyu.edu/",
+      "logo": "/eric_assets/nyu stern.png",
       "positions": [
         {
-          "title": "IB Diploma Programme",
-          "start": "Sep 2023",
+          "title": "B.S. in Business and Math, Philosophy Minor",
+          "start": "Sep 2025",
+          "end": "May 2029",
           "description": [
-            "4.0 GPA, studying Computer Science and Mathematics AA Higher Level.",
-            "Expected graduation: 2027."
+            "Entrepreneurial Exchange Group Investing Team, Business Analytics Club Insight Team, Capital Markets Club Workshop Team, Blockchain & Fintech Club Mentee, Varsity Badminton"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Fraser Heights Secondary School",
+      "href": "#",
+      "logo": "/eric_assets/fraser heights.jpg",
+      "positions": [
+        {
+          "title": "High School Diploma",
+          "start": "2020",
+          "end": "2025",
+          "description": [
+            "Valedictorian, Science Club President, Business Club Vice-President, Model United Nations Club Executive, Grade 8 Badminton Coach, Senior Ultimate Frisbee Captain"
           ]
         }
       ]

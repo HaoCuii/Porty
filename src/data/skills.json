@@ -1,0 +1,23 @@
+{
+  "skills": {
+    "software": [
+      { "name": "Word", "icon": "file-text" },
+      { "name": "Excel", "icon": "table" },
+      { "name": "PowerPoint", "icon": "presentation" },
+      { "name": "Python w/ Numpy & Pandas", "icon": "code" },
+      { "name": "Figma", "icon": "figma" },
+      { "name": "C++", "icon": "code" },
+      { "name": "DaVinci Resolve", "icon": "video" }
+    ],
+    "languages": [
+      { "name": "English", "icon": "globe" },
+      { "name": "Mandarin Chinese", "icon": "globe" },
+      { "name": "French (intermediate)", "icon": "globe" }
+    ],
+    "expertise": [
+      { "name": "Time Management", "icon": "clock" },
+      { "name": "Project Execution", "icon": "briefcase" },
+      { "name": "Team Leadership", "icon": "users" }
+    ]
+  }
+}

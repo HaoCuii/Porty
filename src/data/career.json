@@ -1,48 +1,96 @@
 {
   "career": [
     {
-      "name": "Magic Hour (YC W24)",
-      "href": "https://www.magichour.ai/",
-      "logo": "/img/magichour.png",
+      "name": "Peek-Into-Business",
+      "href": "https://peekintobusiness.wixsite.com/peek-into-business",
+      "logo": "/eric_assets/peak-into-business-log.jpg",
       "positions": [
         {
-          "title": "Software Engineer Intern",
-          "start": "Nov 2025",
+          "title": "Director of Operations",
+          "start": "Sep 2023",
+          "end": "Aug 2025",
           "description": [
-            "Cut AI video generation time by 49% using torch.compile, FlashAttention, and other optimizations (SageAttn2, FP16Fast, TeaCache).",
-            "Built a TikTok scraper that bypasses SSL pinning with a custom MITM proxy to collect high-engagement videos for training data.",
-            "Ran 500+ controlled test renders to identify the best settings and published results on an internal website."
+            "Oversaw operations for a free youth sustainable entrepreneurship program serving 150+ students across the Lower Mainland",
+            "Built partnerships with 15+ community centers and 30+ high-school instructors"
           ]
         }
       ]
     },
     {
-      "name": "Smashspeed",
-      "href": "https://smashspeed.ca/",
-      "logo": "/img/smashspeed.png",
+      "name": "Canadian High Schools Model United Nations",
+      "href": "https://cahsmun.org/",
+      "logo": "/eric_assets/cahsmun logo.png",
       "positions": [
         {
-          "title": "Chief Technology Officer",
-          "start": "May 2025",
+          "title": "Director-General",
+          "start": "Mar 2024",
+          "end": "Apr 2025",
           "description": [
-            "Developed Smashspeed, an AI badminton tracker that detects shots and estimates smash speed in real-time. Hit 40k+ downloads across 100+ countries.",
-            "Ported the ML shuttle tracker to React Native and built a scalable Firebase backend (Auth, Firestore, Cloud Functions, Cloud Storage).",
-            "Trained a YOLOv5 model to detect shuttlecocks—annotated 13k+ images to reach 93% accuracy."
+            "Managed a 12-member team to run North America's largest student-run MUN conference with 1,200+ annual participants",
+            "Led logistics, outreach, and fundraising, coordinating 40+ rooms, 300+ hotel bookings, 90+ schools, and securing $15K+ in sponsorships"
           ]
         }
       ]
     },
     {
-      "name": "FTC Robotics - Furious Frogs",
-      "href": "https://furious-frogs-website.vercel.app/",
-      "logo": "/img/furiousfrogs.png",
+      "name": "Strive Competition",
+      "href": "https://www.strivecompetition.org/",
+      "logo": "/eric_assets/strive logo.png",
       "positions": [
         {
-          "title": "Developer",
-          "start": "Sep 2024",
+          "title": "Director of Conference",
+          "start": "Jun 2024",
+          "end": "Feb 2025",
           "description": [
-            "Built the vision system for our robotics team. We ranked #191 out of 100,000 teams worldwide in the 2024 season.",
-            "Implemented auto-aim using AprilTags and OpenCV. Tuned PID controllers until the targeting was fast and stable enough for competition."
+            "Organized logistics for Western Canada's largest technology-focused business case competition, serving 400+ participants",
+            "Designed venue layouts and scoring systems, coordinating 50+ rooms, a 20+ exhibitor expo, and tracking results for 60+ teams"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Surrey Sport & Leisure Complex",
+      "href": "https://www.surrey.ca/parks-recreation/recreation-facilities/surrey-sport-leisure-complex",
+      "logo": "/eric_assets/city of surrey.png",
+      "positions": [
+        {
+          "title": "Lifeguard and Swim Instructor",
+          "start": "2023",
+          "description": [
+            "Maintained vigilant surveillance and administered first aid for 1,000+ daily patrons at Surrey's 2nd largest aquatic facility",
+            "Developed and implemented personalized swimming lesson plans for 120+ children, teaching comprehensive stroke techniques"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Communicative Bracelets for Non-Verbal Students",
+      "href": "https://www.youtube.com/watch?v=QhLnQxeEsW8",
+      "logo": "/eric_assets/non verbal bracelet.png",
+      "positions": [
+        {
+          "title": "Project Lead",
+          "start": "Mar 2024",
+          "end": "Aug 2025",
+          "description": [
+            "Designed communicative bracelets for non-verbal BASES students as a portable alternative to AAC iPad apps, delivering four user-tested prototypes with 100% satisfaction",
+            "Scaled production from one student to 110+ bracelets distributed across multiple elementary and high schools in Surrey"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "British Columbia Children's Hospital",
+      "href": "https://www.bcchildrens.ca/",
+      "logo": "/eric_assets/bc children hospital.png",
+      "positions": [
+        {
+          "title": "Intern and Researcher",
+          "start": "Jul 2023",
+          "end": "Aug 2023",
+          "description": [
+            "Conducted Klebsiella vaccine research, supporting data collection and literature review for bacterial immunology and vaccine development",
+            "Created 7 informational pamphlets for the HIPpy Lab, translating medical research into clear, patient-friendly public health materials"
           ]
         }
       ]

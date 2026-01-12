@@ -1,182 +1,68 @@
 {
   "projects": [
     {
-      "name": "Smashspeed",
-      "description": "AI-powered badminton tracker to measure the speed of your smash and share it with your friends. 40k+ downloads across 100+ countries.",
-      "image": "/img/smashspeed2.png",
-      "tags": [
-        "Firebase",
-        "OpenCV",
-        "YOLOv5",
-        "Kotlin",
-        "React Native",
-        "Expo"
-      ],
-      "links": [
-        {
-          "name": "Website",
-          "href": "https://smashspeed.ca/",
-          "icon": "globe"
-        },
-        {
-          "name": "GitHub",
-          "href": "https://github.com/HaoCuii/smashspeed_rn",
-          "icon": "github"
-        }
-      ]
+      "name": "Fantastic Four Case Competition",
+      "description": "",
+      "image": "/eric_assets/FantasticFour_Round1_thumbnail.png",
+      "href": "/eric_assets/FantasticFour_Round1.pdf",
+      "tags": [],
+      "links": []
     },
     {
-      "name": "Steve the Freakysaur",
-      "description": "Control the Chrome Dino runner game with your tongue for freaky fun. Won 1st place at BC's largest high school hackathon — 160k+ impressions.",
-      "image": "/img/freakysaur2.png",
-      "tags": [
-        "OpenCV",
-        "Mediapipe",
-        "Python",
-        "Next.js"
-      ],
-      "links": [
-        {
-          "name": "Play",
-          "href": "https://haocuii.itch.io/steve-the-freakysaur",
-          "icon": "globe"
-        },
-        {
-          "name": "GitHub",
-          "href": "https://github.com/diwenne/freakysaur",
-          "icon": "github"
-        }
-      ]
+      "name": "Senra Systems VC Pitch",
+      "description": "",
+      "image": "/eric_assets/Senra Systems EEG Final_thumbnail.png",
+      "href": "/eric_assets/Senra Systems EEG Final.pdf",
+      "tags": [],
+      "links": []
     },
     {
-      "name": "Architectural RAG",
-      "description": "RAG chatbot to answer questions about dimensions, materials, and general queries about architectural plans. Created for Fresco (YC F24).",
-      "image": "/img/rag.png",
-      "tags": [
-        "Python",
-        "RAG",
-        "Tesseract OCR"
-      ],
-      "links": [
-        {
-          "name": "Company",
-          "href": "https://www.ycombinator.com/companies/fresco",
-          "icon": "globe"
-        },
-        {
-          "name": "GitHub",
-          "href": "https://github.com/HaoCuii/Fresco",
-          "icon": "github"
-        }
-      ]
+      "name": "Long Defense Tech ETF (SHLD)",
+      "description": "",
+      "image": "/eric_assets/Long Global X Defense Tech ETF (SHLD)_thumbnail.png",
+      "href": "/eric_assets/Long Global X Defense Tech ETF (SHLD).pdf",
+      "tags": [],
+      "links": []
     },
     {
-      "name": "img2desmos",
-      "description": "Convert any image into parametric equations that render beautifully in the Desmos graphing calculator. Math meets art.",
-      "image": "/img/img2desmos.png",
-      "tags": [
-        "Docker",
-        "Flask",
-        "JavaScript",
-        "Potrace",
-        "Axios"
-      ],
-      "links": [
-        {
-          "name": "Website",
-          "href": "https://www.img2desmos.com/",
-          "icon": "globe"
-        },
-        {
-          "name": "GitHub",
-          "href": "https://github.com/HaoCuii/imgtodesmos",
-          "icon": "github"
-        }
-      ]
+      "name": "Base by Coinbase Capstone",
+      "description": "",
+      "image": "/eric_assets/b&f product capstone_thumbnail.png",
+      "href": "/eric_assets/b&f product capstone.pdf",
+      "tags": [],
+      "links": []
     },
     {
-      "name": "Cluely Gaze Tracker",
-      "description": "Real-time gaze tracking system that runs entirely on CPU at 15-30 FPS with 100ms latency. Uses webcam + landmark detection with temporal smoothing.",
-      "image": "/img/cluely3.png",
-      "tags": [
-        "Python",
-        "OpenCV",
-        "Mediapipe",
-        "Machine Learning"
-      ],
-      "links": [
-        {
-          "name": "Company",
-          "href": "https://cluely.com/",
-          "icon": "globe"
-        }
-      ]
+      "name": "Tesla Short Pitch",
+      "description": "",
+      "image": "/eric_assets/Tesla Short_thumbnail.png",
+      "href": "/eric_assets/Tesla Short.pdf",
+      "tags": [],
+      "links": []
     },
     {
-      "name": "DMOJ Solutions",
-      "description": "200+ competitive programming problems. 2+ years of my life.",
-      "image": "/img/dmoj.png",
-      "tags": [
-        "Data Structures",
-        "Algorithms",
-        "C++"
-      ],
-      "links": [
-        {
-          "name": "Profile",
-          "href": "https://dmoj.ca/user/haocuii",
-          "icon": "globe"
-        },
-        {
-          "name": "GitHub",
-          "href": "https://github.com/HaoCuii/DMOJ-Solutions",
-          "icon": "github"
-        }
-      ]
+      "name": "Long BRL/Short JPY FX Trade",
+      "description": "",
+      "image": "/eric_assets/Long BRL_Short JPY FX Trade_thumbnail.png",
+      "href": "/eric_assets/Long BRL_Short JPY FX Trade.pdf",
+      "tags": [],
+      "links": []
     },
     {
-      "name": "Conway's Game of Life",
-      "description": "Watch cells come alive on a grid, following simple rules that create surprisingly complex patterns. Optimized for smooth animations on large grids.",
-      "image": "/img/conway2.png",
-      "tags": [
-        "TypeScript",
-        "React",
-        "Memoization"
-      ],
-      "links": [
-        {
-          "name": "Demo",
-          "href": "https://conways-game-of-life-38hy.vercel.app/",
-          "icon": "globe"
-        },
-        {
-          "name": "GitHub",
-          "href": "https://github.com/HaoCuii/Conways-Game-Of-Life",
-          "icon": "github"
-        }
-      ]
+      "name": "IMAX MiniEnterprise Recommendations",
+      "description": "",
+      "image": "/eric_assets/IMAX Recommendations MiniE 2025_thumbnail.png",
+      "href": "/eric_assets/IMAX Recommendations MiniE 2025.pdf",
+      "tags": [],
+      "links": []
     },
     {
-      "name": "WorkFlow",
-      "description": "Collaborate in real-time by creating rooms with your friends. Kanban board for getting things done together.",
-      "image": "/img/workflow2.png",
-      "tags": [
-        "WebSocket",
-        "Firebase",
-        "React"
-      ],
-      "links": [
-        {
-          "name": "Website",
-          "href": "https://www.yourworkflow.co/",
-          "icon": "globe"
-        },
-        {
-          "name": "GitHub",
-          "href": "https://github.com/HaoCuii/WorkFlow",
-          "icon": "github"
-        }
-      ]
+      "name": "NBA Draft Pick Valuation",
+      "description": "",
+      "image": "/eric_assets/NBA Draft Pick Value - BAC Insight_thumbnail.png",
+      "href": "/eric_assets/NBA Draft Pick Value - BAC Insight.pdf",
+      "tags": [],
+      "links": []
     }
   ]
 }

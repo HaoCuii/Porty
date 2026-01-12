@@ -144,12 +144,6 @@ export default function ContactForm() {
               <PaperPlaneIcon className="ml-2" />
             </div>
           </Button>
-          <p className="mt-4 text-xs text-muted-foreground">
-            By submitting this form, I agree to the{" "}
-            <Link href="/privacy" className="link font-semibold">
-              privacy&nbsp;policy.
-            </Link>
-          </p>
         </div>
       </form>
 

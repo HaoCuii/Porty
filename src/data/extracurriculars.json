@@ -1,0 +1,84 @@
+{
+    "extracurriculars": [
+        {
+            "name": "Entrepreneurial Exchange Group",
+            "href": "#",
+            "logo": "",
+            "positions": [
+                {
+                    "title": "Investing Team Member",
+                    "start": "Sep 2025",
+                    "end": "Dec 2025",
+                    "description": [
+                        "Completed a VC curriculum with 2 weekly meetings, analyzing valuation case studies, and engaging with NYC founders and investors",
+                        "Created a final pitch on Senra Systems (a16z-backed) analyzing market, competition, and moats; connected with the CEO Jordan Black"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Business Analytics Club",
+            "href": "#",
+            "logo": "",
+            "positions": [
+                {
+                    "title": "Insight Team Member",
+                    "start": "Sep 2025",
+                    "end": "Dec 2025",
+                    "description": [
+                        "Gained hands-on experience in Python (Numpy & Pandas), SQL, and data visualization to develop processing & regression modeling skills",
+                        "Conducted a semester-long team project on valuing NBA draft picks using decision trees, random forests, and XGBoost models"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Capital Markets Club",
+            "href": "#",
+            "logo": "",
+            "positions": [
+                {
+                    "title": "Workshop Team Member",
+                    "start": "Sep 2025",
+                    "end": "Dec 2025",
+                    "description": [
+                        "Selected as 1 of 12 students from 200+ applicants for a semester-long training program on financial markets and macroeconomic principles",
+                        "Created a Tesla Short pitch with a DCF model and company & industry overview, and a Reserve Bank of Australia macroeconomic pitch"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Blockchain & Fintech Club",
+            "href": "#",
+            "logo": "",
+            "positions": [
+                {
+                    "title": "Mentorship Program Mentee",
+                    "start": "Sep 2025",
+                    "end": "Dec 2025",
+                    "description": [
+                        "Admitted as 1 of 10 freshmen to a 10-week cryptocurrency mentorship program with training in wallets, smart contracts, and DeFi protocols",
+                        "Completed a Product Team capstone project for Base by Coinbase, by identifying their market and pain points to create 3 recommendations"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Stern Accounting Society",
+            "href": "#",
+            "logo": "",
+            "positions": [
+                {
+                    "title": "Workshop Member",
+                    "start": "Sep 2025",
+                    "end": "Dec 2025",
+                    "description": [
+                        "Mentored by 3 upperclassmen to gain experience in accounting and finance, as well as financial statements, behavioral skills, and networking",
+                        "Selected from 100+ applicants to attend 10 weekly meetings to develop important accounting skills through professional and social events"
+                    ]
+                }
+            ]
+        }
+    ]
+}
