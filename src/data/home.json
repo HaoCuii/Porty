@@ -1,15 +1,6 @@
 {
   "introduction": {
     "greeting": "hi, i'm hao 👋",
-    "description": "CS student focused on fullstack web, mobile, and machine learning.",
-    "escalation": {
-      "text": "Check out my",
-      "linkText": "resume",
-      "suffix": "for more details."
-    }
-  },
-  "escalationLink": {
-    "href": "/resume.pdf",
-    "title": "Resume"
+    "description": "CS student focused on fullstack web, mobile, and machine learning."
   }
 }

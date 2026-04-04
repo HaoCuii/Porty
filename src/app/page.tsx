@@ -36,19 +36,7 @@ export default async function Home() {
             {homeContent.introduction.description}
           </p>
 
-          <p className="mt-1 text-xs font-light">
-            {homeContent.introduction.escalation.text}&nbsp;
-            <Link
-              href={homeContent.escalationLink.href}
-              target="_blank"
-              className="link font-semibold underline"
-              title={homeContent.escalationLink.title}
-            >
-              {homeContent.introduction.escalation.linkText}
-            </Link>
-            &nbsp;
-            {homeContent.introduction.escalation.suffix}
-          </p>
+
 
           <section className="mt-6 flex flex-wrap items-center gap-4">
             <Link href="/resume.pdf" target="_blank">

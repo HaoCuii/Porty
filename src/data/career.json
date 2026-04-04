@@ -9,9 +9,9 @@
           "title": "Software Engineer Intern",
           "start": "Nov 2025",
           "description": [
-            "Cut AI video generation time by 49% using torch.compile, FlashAttention, and other optimizations (SageAttn2, FP16Fast, TeaCache).",
-            "Built a TikTok scraper that bypasses SSL pinning with a custom MITM proxy to collect high-engagement videos for training data.",
-            "Ran 500+ controlled test renders to identify the best settings and published results on an internal website."
+            "Built a high-speed image generation workflow used by millions of users.",
+            "Reduced video generation time by 49% through deep technical optimizations.",
+            "Optimized complex AI models to run efficiently on single-GPU systems."
           ]
         }
       ]
@@ -25,24 +25,25 @@
           "title": "Chief Technology Officer",
           "start": "May 2025",
           "description": [
-            "Developed Smashspeed, an AI badminton tracker that detects shots and estimates smash speed in real-time. Hit 40k+ downloads across 100+ countries.",
-            "Ported the ML shuttle tracker to React Native and built a scalable Firebase backend (Auth, Firestore, Cloud Functions, Cloud Storage).",
-            "Trained a YOLOv5 model to detect shuttlecocks—annotated 13k+ images to reach 93% accuracy."
+            "Reached 50k+ downloads across 100+ countries with a viral social campaign.",
+            "Built and launched the Smashspeed mobile app and marketing website (10k+ monthly users).",
+            "Developed the AI shuttle tracker and scalable backend infrastructure."
           ]
         }
       ]
     },
     {
       "name": "FTC Robotics - Furious Frogs",
-      "href": "https://furious-frogs-website.vercel.app/",
+      "href": "https://www.furiousfrogs.org/",
       "logo": "/img/furiousfrogs.png",
       "positions": [
         {
           "title": "Developer",
           "start": "Sep 2024",
           "description": [
-            "Built the vision system for our robotics team. We ranked #191 out of 100,000 teams worldwide in the 2024 season.",
-            "Implemented auto-aim using AprilTags and OpenCV. Tuned PID controllers until the targeting was fast and stable enough for competition."
+            "Ranked #1 in Canada, peaking at #2 in the world.",
+            "Developed advanced ball tracking and autonomous navigation systems for competition.",
+            "Implemented precise auto-aim and targeting systems for the robot."
           ]
         }
       ]

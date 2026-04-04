@@ -129,14 +129,18 @@ const cardData: Card[] = [
   },
   {
     id: 3,
-    url: "/img/portfolio3.png",
+    url: "/img/image gallery.jpg",
   },
   {
     id: 4,
-    url: "/img/portfolio2.jpg",
+    url: "/img/Screenshot 2026-04-04 140108.png",
   },
   {
     id: 5,
+    url: "/img/portfolio2.jpg",
+  },
+  {
+    id: 6,
     url: "/img/portfolio1.png",
   },
 ];

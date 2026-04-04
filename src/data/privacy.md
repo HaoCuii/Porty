@@ -20,9 +20,7 @@ If you use the chatbot, the messages are stored in my own database. I use them p
 
 I’m the only one looking at this data. It’s not shared or sold. Please don’t put anything sensitive or offensive into the chat.
 
-### Contacting me
 
-If you email me or use the contact form, I’ll only use your email to reply and continue the conversation.
 
 ## How I use the info
 
@@ -38,4 +36,4 @@ I don’t sell, trade, or rent personal data. If you accidentally share somethin
 
 ## Questions?
 
-If you have questions, concerns, or just want to say hi, email me at [hello@tedawf.com](mailto:hello@tedawf.com) or use the [contact form](/contact). Happy to chat.
+If you have questions, concerns, or just want to say hi, email me at [hello@tedawf.com](mailto:hello@tedawf.com). Happy to chat.

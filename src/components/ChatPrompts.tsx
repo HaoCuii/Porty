@@ -38,8 +38,7 @@ const allPrompts = [
   "What can you help me with?",
   "Where should I start if I want to explore Hao's work?",
   "What should I read to understand Hao's thinking?",
-  "Is Hao more backend or frontend focused?",
-  "How can I contact Hao?"
+  "Is Hao more backend or frontend focused?"
 ];
 
 function getRandomPrompts(prompts: string[], count: number): string[] {

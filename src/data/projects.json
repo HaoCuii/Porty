@@ -1,14 +1,36 @@
 {
   "projects": [
     {
+      "name": "pip-doom",
+      "description": "Play DOOM inside your terminal while installing a Python package.",
+      "image": "/img/pip-doom.png",
+      "tags": [
+        "Python",
+        "PyPI",
+        "Bash",
+        "Terminal"
+      ],
+      "links": [
+        {
+          "name": "PyPI",
+          "href": "https://pypi.org/project/pip-doom/",
+          "icon": "globe"
+        },
+        {
+          "name": "GitHub",
+          "href": "https://github.com/HaoCuii/pip-doom",
+          "icon": "github"
+        }
+      ]
+    },
+    {
       "name": "Smashspeed",
-      "description": "AI-powered badminton tracker to measure the speed of your smash and share it with your friends. 40k+ downloads across 100+ countries.",
+      "description": "AI badminton tracker that measures the speed of your smashes in real-time. 50k+ downloads across 100+ countries.",
       "image": "/img/smashspeed2.png",
       "tags": [
         "Firebase",
         "OpenCV",
         "YOLOv5",
-        "Kotlin",
         "React Native",
         "Expo"
       ],
@@ -27,7 +49,7 @@
     },
     {
       "name": "Steve the Freakysaur",
-      "description": "Control the Chrome Dino runner game with your tongue for freaky fun. Won 1st place at BC's largest high school hackathon — 160k+ impressions.",
+      "description": "Chrome Dino runner game controlled entirely with your tongue. Won 1st place at BC's largest high school hackathon.",
       "image": "/img/freakysaur2.png",
       "tags": [
         "OpenCV",
@@ -49,37 +71,14 @@
       ]
     },
     {
-      "name": "Architectural RAG",
-      "description": "RAG chatbot to answer questions about dimensions, materials, and general queries about architectural plans. Created for Fresco (YC F24).",
-      "image": "/img/rag.png",
-      "tags": [
-        "Python",
-        "RAG",
-        "Tesseract OCR"
-      ],
-      "links": [
-        {
-          "name": "Company",
-          "href": "https://www.ycombinator.com/companies/fresco",
-          "icon": "globe"
-        },
-        {
-          "name": "GitHub",
-          "href": "https://github.com/HaoCuii/Fresco",
-          "icon": "github"
-        }
-      ]
-    },
-    {
       "name": "img2desmos",
-      "description": "Convert any image into parametric equations that render beautifully in the Desmos graphing calculator. Math meets art.",
+      "description": "Transform any image into mathematical equations that render in the Desmos graphing calculator.",
       "image": "/img/img2desmos.png",
       "tags": [
         "Docker",
         "Flask",
         "JavaScript",
-        "Potrace",
-        "Axios"
+        "Potrace"
       ],
       "links": [
         {
@@ -95,26 +94,8 @@
       ]
     },
     {
-      "name": "Cluely Gaze Tracker",
-      "description": "Real-time gaze tracking system that runs entirely on CPU at 15-30 FPS with 100ms latency. Uses webcam + landmark detection with temporal smoothing.",
-      "image": "/img/cluely3.png",
-      "tags": [
-        "Python",
-        "OpenCV",
-        "Mediapipe",
-        "Machine Learning"
-      ],
-      "links": [
-        {
-          "name": "Company",
-          "href": "https://cluely.com/",
-          "icon": "globe"
-        }
-      ]
-    },
-    {
       "name": "DMOJ Solutions",
-      "description": "200+ competitive programming problems. 2+ years of my life.",
+      "description": "A collection of 200+ solutions to algorithmic problems on the DMOJ platform.",
       "image": "/img/dmoj.png",
       "tags": [
         "Data Structures",
@@ -136,12 +117,12 @@
     },
     {
       "name": "Conway's Game of Life",
-      "description": "Watch cells come alive on a grid, following simple rules that create surprisingly complex patterns. Optimized for smooth animations on large grids.",
+      "description": "A high-performance browser version of the classic zero-player cellular automaton game.",
       "image": "/img/conway2.png",
       "tags": [
         "TypeScript",
         "React",
-        "Memoization"
+        "Math"
       ],
       "links": [
         {
@@ -158,7 +139,7 @@
     },
     {
       "name": "WorkFlow",
-      "description": "Collaborate in real-time by creating rooms with your friends. Kanban board for getting things done together.",
+      "description": "Real-time collaborative Kanban board for staying organized with your team.",
       "image": "/img/workflow2.png",
       "tags": [
         "WebSocket",
