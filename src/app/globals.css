@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Same-document navigations are crossfaded by useCrossfadeNavigation. This
+   opts the site into cross-document transitions too, for the navigations the
+   router cannot do in place: a link to a route that does not exist falls back
+   to a full page load, which no amount of JavaScript can animate. */
+@view-transition {
+  navigation: auto;
+}
+
 @layer base {
   :root {
     --background: 0 0% 98%;
