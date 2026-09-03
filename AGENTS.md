@@ -7,7 +7,7 @@ The site runs on Next.js 14 App Router. Pages live under `src/app` — `/` (abou
 Use `npm run dev` for a hot-reloading local server on all interfaces. `npm run build` compiles the production bundle and `npm run start` serves it. `npm run lint` enforces Next.js/ESLint rules, and `npm run format` applies Prettier with the Tailwind plugin.
 
 ## Design System
-The layout follows a single pattern: a right-aligned italic serif nav column, a hairline vertical rule, and a 700px content column. Rules to preserve when adding pages:
+The layout follows a single pattern: a right-aligned italic serif nav column, a hairline vertical rule, and a 700px content column. Below `sm` the column stacks: the nav becomes a right-aligned row and its rule turns horizontal, sitting between the nav and the content. Rules to preserve when adding pages:
 
 - Every page is one `<article className="prose-page">` opening with an `<h1 className="title">`. The title is bold body text, not a larger size — size is never used to signal hierarchy. The one exception is `/thoughts`, which is a bare index: its `<h1>` is `sr-only` so the first row sits level with the first nav link.
 - Index rows (`/thoughts`) make the whole row one link — title, dotted leader, and date darken together on hover. Titles are `font-medium` (500 — never semibold), rest at `heading/85`, and go to full `heading` on hover; dates rest at `muted` in the regular weight. Row links carry `no-underline`, since `.prose-page` underlines bare anchors.

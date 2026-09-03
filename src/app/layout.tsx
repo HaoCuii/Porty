@@ -57,7 +57,7 @@ export default function RootLayout({
         {/* Anchored to the top-left corner, not centred — the whole block
             sits at the left edge and the page runs out to the right. */}
         <CrossfadeNavigation />
-        <div className="px-6 py-12 sm:py-16">
+        <div className="px-6 py-6 sm:py-16">
           <div className="sm:flex sm:items-start">
             <Nav />
             <main className="w-full max-w-[700px] sm:border-l sm:border-rule sm:pl-[52px]">

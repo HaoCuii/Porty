@@ -11,8 +11,8 @@ export default function Nav() {
   const pathname = usePathname();
 
   return (
-    <nav className="mb-10 w-full shrink-0 sm:mb-0 sm:w-[152px] sm:pr-12 sm:text-right">
-      <ul className="flex gap-5 sm:block sm:gap-0">
+    <nav className="mb-6 w-full shrink-0 border-b border-rule pb-6 text-right sm:mb-0 sm:w-[152px] sm:border-b-0 sm:pb-0 sm:pr-12">
+      <ul className="flex justify-end gap-5 sm:block sm:gap-0">
         {navLinks.map((route) => {
           const isActive =
             route.path === "/"
