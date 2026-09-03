@@ -1,1 +1,1 @@
-My portfolio inspired from tedawf.com :)
+My portfolio. Next.js 14, Tailwind, deployed on Vercel.

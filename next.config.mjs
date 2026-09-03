@@ -2,16 +2,6 @@
 const nextConfig = {
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "tacos.tedawf.com",
-        port: "",
-        pathname: "/images/**",
-      },
-    ],
-  },
 };
 
 export default nextConfig;

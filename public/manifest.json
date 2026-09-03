@@ -1,27 +1,9 @@
 {
-  "name": "Ted Thoughts.",
-  "short_name": "tedawf.com",
+  "name": "Hao Cui",
+  "short_name": "haocui.dev",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#ffffff",
-  "description": "My personal site to showcase my developer work and opinions.",
-  "icons": [
-    {
-      "src": "/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
-      "src": "/apple-touch-icon.png",
-      "sizes": "180x180",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ]
+  "background_color": "#fafafa",
+  "theme_color": "#fafafa",
+  "description": "Hao Cui is a software engineer from Vancouver working across web, mobile, and machine learning."
 }

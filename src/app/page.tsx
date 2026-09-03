@@ -1,69 +1,46 @@
-import Experience from "@/components/Experience";
-import LinkWithIcon from "@/components/LinkWithIcon";
-import Projects from "@/components/Projects";
-import Socials from "@/components/Socials";
-import SwipeCards from "@/components/SwipeCards";
-import { Button } from "@/components/ui/Button";
-import {
-  ArrowRightIcon,
-  FileDown,
-} from "lucide-react";
-import Link from "next/link";
-
 import homeContent from "@/data/home.json";
 
-const TED_BIRTH_YEAR = 2009;
-const LIMIT = 2; // max show 2
-
-export default async function Home() {
-  const currentAge = new Date().getFullYear() - TED_BIRTH_YEAR;
-
+export default function AboutPage() {
   return (
-    <article className="mt-8 flex flex-col gap-16 pb-16">
-      <section className="flex flex-col items-start gap-8 md:flex-row-reverse md:items-center md:justify-between">
-        <SwipeCards className="md:mr-8" />
+    <article className="prose-page">
+      <h1 className="title">{homeContent.name}</h1>
 
-        <div className="flex max-w-[320px] flex-col sm:max-w-full">
-          <h1 className="title text-balance text-4xl sm:text-5xl">
-            {homeContent.introduction.greeting}
-          </h1>
+      <p>
+        Hi, I&apos;m Hao! My online handles tend to follow the regex{" "}
+        <code>/hao[\.-]?cuii/</code>. I&apos;m currently a high school senior in
+        Vancouver, BC. I&apos;m currently interested in AI interpretability and
+        safety, understanding the black-boxy nature of models to make AI safer
+        to use.
+      </p>
 
-          <p className="mt-2 whitespace-nowrap text-sm font-medium sm:text-base">
-            {currentAge}yo software engineer from Canada 🇨🇦
-          </p>
+      <p>
+        I was a software engineer intern at{" "}
+        <a href="https://www.magichour.ai/" target="_blank" rel="noreferrer">
+          Magic Hour
+        </a>{" "}
+        (YC W24), working on high-speed image and video generation. I am also
+        the CTO and founding member of{" "}
+        <a href="https://smashspeed.ca/" target="_blank" rel="noreferrer">
+          Smashspeed
+        </a>
+        , an AI badminton tracker that has passed 50,000 downloads across more
+        than 100 countries. Before that I built ball tracking and autonomous
+        systems for{" "}
+        <a
+          href="https://www.furiousfrogs.org/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Furious Frogs
+        </a>
+        , a community FTC robotics team ranked first in Canada.
+      </p>
 
-          <p className="mt-4 max-w-sm text-balance text-sm sm:text-base">
-            {homeContent.introduction.description}
-          </p>
-
-
-
-          <section className="mt-6 flex flex-wrap items-center gap-4">
-            <Link href="/resume.pdf" target="_blank">
-              <Button variant="outline">
-                <span className="font-semibold">Resume</span>
-                <FileDown className="ml-2 size-5" />
-              </Button>
-            </Link>
-            <Socials />
-          </section>
-        </div>
-      </section>
-
-      <Experience />
-
-      <section className="flex flex-col gap-8">
-        <div className="flex justify-between">
-          <h2 className="title text-2xl sm:text-3xl">featured projects</h2>
-          <LinkWithIcon
-            href="/projects"
-            position="right"
-            icon={<ArrowRightIcon className="size-5" />}
-            text="view more"
-          />
-        </div>
-        <Projects limit={LIMIT} />
-      </section>
+      <p>
+        Things that make me happy (in alphabetical order): badminton,
+        basketball, books, Brawl Stars, cats, family, friends, movies, piano,
+        Pokémon, seven, sushi, volleyball
+      </p>
     </article>
   );
 }

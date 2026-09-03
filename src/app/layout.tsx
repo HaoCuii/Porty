@@ -1,30 +1,34 @@
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import Providers from "@/components/Providers";
+import Nav from "@/components/Nav";
 import { cn } from "@/lib/utils";
 import type { Metadata, Viewport } from "next";
-import { Calistoga, Inter } from "next/font/google";
+import { Inter, Lora } from "next/font/google";
 import "./globals.css";
 
+// The reference site's own two faces: InterVariable for everything, and
+// LoraItalicVariable — italic only — for the nav.
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
-  weight: ["400", "500", "600", "700"],
+  display: "swap",
 });
-const calistoga = Calistoga({
+
+const lora = Lora({
   subsets: ["latin"],
   variable: "--font-serif",
-  weight: ["400"],
+  style: ["italic"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Hao's Abode",
-  description: "My personal site to showcase my developer work and opinions.",
+  metadataBase: new URL("https://haocui.dev"),
+  title: {
+    default: "Hao Cui",
+    template: "%s — Hao Cui",
+  },
+  description:
+    "Hao Cui is a software engineer from Vancouver working across web, mobile, and machine learning.",
   icons: {
-    icon: [
-      { url: "/favicon.png" },
-    ],
-    apple: "/apple-touch-icon.png",
+    icon: [{ url: "/favicon.png" }],
   },
   manifest: "/manifest.json",
 };
@@ -32,8 +36,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
+  themeColor: "#fafafa",
 };
 
 export default function RootLayout({
@@ -42,21 +45,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "min-h-screen bg-background font-sans text-base text-foreground antialiased",
           inter.variable,
-          calistoga.variable,
+          lora.variable,
         )}
       >
-        <Providers>
-          <Header />
-          <div className="mx-auto flex max-w-3xl flex-col px-8">
-            <main className="grow">{children}</main>
+        {/* Anchored to the top-left corner, not centred — the whole block
+            sits at the left edge and the page runs out to the right. */}
+        <div className="px-6 py-12 sm:py-16">
+          <div className="sm:flex sm:items-start">
+            <Nav />
+            <main className="w-full max-w-[700px] sm:border-l sm:border-rule sm:pl-[52px]">
+              {children}
+            </main>
           </div>
-          <Footer />
-        </Providers>
+        </div>
       </body>
     </html>
   );

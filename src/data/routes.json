@@ -2,21 +2,27 @@
   "routes": [
     {
       "path": "/",
-      "name": "home",
-      "description": "Portfolio overview, recent projects, and blog highlights",
+      "name": "about",
+      "description": "Who I am and what I work on",
+      "showInNav": true
+    },
+    {
+      "path": "/thoughts",
+      "name": "thoughts",
+      "description": "Writing",
       "showInNav": true
     },
     {
       "path": "/projects",
       "name": "projects",
-      "description": "Portfolio projects showcase",
+      "description": "Things I've built",
       "showInNav": true
     },
     {
-      "path": "/blog",
-      "name": "blog",
-      "description": "Blog posts and project updates",
-      "showInNav": false
+      "path": "/contact",
+      "name": "contact",
+      "description": "How to reach me",
+      "showInNav": true
     },
     {
       "path": "/privacy",
@@ -30,6 +36,5 @@
       "description": "Hao Cui's resume CV in pdf format",
       "showInNav": false
     }
-  ],
-  "externalLinks": []
+  ]
 }

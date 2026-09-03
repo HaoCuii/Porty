@@ -1,6 +1,5 @@
 {
-  "introduction": {
-    "greeting": "hi, i'm hao 👋",
-    "description": "CS student focused on fullstack web, mobile, and machine learning."
-  }
+  "name": "Hao Cui",
+  "birthYear": 2009,
+  "location": "Vancouver, Canada"
 }
