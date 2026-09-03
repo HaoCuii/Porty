@@ -7,7 +7,7 @@ export default function AboutPage() {
 
       <p>
         Hi, I&apos;m Hao! My online handles tend to follow the regex{" "}
-        <code>/hao[\.-]?cuii/</code>. I&apos;m currently a high school senior in
+        <code>/hao[\.-]?cuii/</code>. I&apos;m a high school senior in
         Vancouver, BC. I&apos;m currently interested in AI interpretability and
         safety, understanding the black-boxy nature of models to make AI safer
         to use.
