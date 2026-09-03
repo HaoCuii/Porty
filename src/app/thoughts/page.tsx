@@ -1,4 +1,4 @@
-import TransitionLink from "@/components/TransitionLink";
+import Link from "next/link";
 import { formatDate, getThoughts } from "@/lib/thoughts";
 import type { Metadata } from "next";
 
@@ -24,7 +24,7 @@ export default function ThoughtsPage() {
             <li key={thought.slug}>
               {/* The whole row is the link: title, leader, and date all darken
                   together on hover. */}
-              <TransitionLink
+              <Link
                 href={`/thoughts/${thought.slug}`}
                 className="group flex items-baseline leading-7 text-heading/85 no-underline"
               >
@@ -38,7 +38,7 @@ export default function ThoughtsPage() {
                 >
                   {formatDate(thought.date)}
                 </time>
-              </TransitionLink>
+              </Link>
             </li>
           ))}
         </ul>

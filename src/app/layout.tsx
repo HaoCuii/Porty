@@ -1,3 +1,4 @@
+import CrossfadeNavigation from "@/components/CrossfadeNavigation";
 import Nav from "@/components/Nav";
 import { cn } from "@/lib/utils";
 import type { Metadata, Viewport } from "next";
@@ -55,6 +56,7 @@ export default function RootLayout({
       >
         {/* Anchored to the top-left corner, not centred — the whole block
             sits at the left edge and the page runs out to the right. */}
+        <CrossfadeNavigation />
         <div className="px-6 py-12 sm:py-16">
           <div className="sm:flex sm:items-start">
             <Nav />

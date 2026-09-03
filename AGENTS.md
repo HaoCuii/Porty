@@ -1,7 +1,7 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-The site runs on Next.js 14 App Router. Pages live under `src/app` — `/` (about), `/thoughts`, `/projects`, and `/privacy`. There are only two components (`Nav`, `TransitionLink`) in `src/components`. Structured content lives in `src/data` as JSON validated by the zod schemas in `src/lib/schemas.ts`; long-form writing lives in `src/content/thoughts/` as Markdown. Static assets belong in `public/`.
+The site runs on Next.js 14 App Router. Pages live under `src/app` — `/` (about), `/thoughts`, `/projects`, and `/contact`. There are only two components (`Nav`, `CrossfadeNavigation`) in `src/components`. Structured content lives in `src/data` as JSON validated by the zod schemas in `src/lib/schemas.ts`; long-form writing lives in `src/content/thoughts/` as Markdown. Static assets belong in `public/`.
 
 ## Build, Test, and Development Commands
 Use `npm run dev` for a hot-reloading local server on all interfaces. `npm run build` compiles the production bundle and `npm run start` serves it. `npm run lint` enforces Next.js/ESLint rules, and `npm run format` applies Prettier with the Tailwind plugin.
@@ -15,7 +15,7 @@ The layout follows a single pattern: a right-aligned italic serif nav column, a 
 - Colour comes from four tokens only: `background`, `foreground`, `heading`, `muted`, plus `rule` for hairlines. They are defined once in `globals.css`; never hardcode a colour. The site is light-only — there is no dark mode, and no theme switcher.
 - Use `.link` for inline links, and the `.leader` dotted spacer for any "label ......... value" row (see `/thoughts` and `/projects`).
 - Two faces, both from the reference site: Inter (`font-sans`) for all content, and Lora **italic only** (`font-serif`) for the nav. Do not use the serif anywhere but the nav, and do not add a third family.
-- Route changes crossfade through a 3px blur, driven by `TransitionLink` and the View Transitions API. `<main>` carries `view-transition-name: content` so only the content column animates — the nav is left in the root snapshot and cuts over instantly. Any new internal link should use `TransitionLink`, not `next/link`. A single thought adds `.thought-enter` on top of that, so opening one settles in through the same fade.
+- Route changes crossfade through a 3px blur, driven by the `useCrossfadeNavigation` hook and the View Transitions API. `<main>` carries `view-transition-name: content` so only the content column animates — the nav is left in the root snapshot and cuts over instantly. The hook is installed once by `CrossfadeNavigation` in the root layout and captures clicks on every same-origin link, so a plain `<a>`, a `next/link`, a Markdown link, and a link to a route that does not exist all animate alike — no special link component, and nothing to remember when adding a page. It never holds the outgoing page for more than 250ms: a route that is still loading paints without the animation rather than appearing frozen.
 
 ## Coding Style & Naming Conventions
 TypeScript is required; favor server components unless interactivity demands `"use client"`. Follow functional component patterns, camelCase for functions/variables, and PascalCase for components. Two-space indentation and trailing commas come from Prettier—do not hand-format files.

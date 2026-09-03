@@ -2,8 +2,8 @@
 
 import routesData from "@/data/routes.json";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-import TransitionLink from "./TransitionLink";
 
 const navLinks = routesData.routes.filter((route) => route.showInNav);
 
@@ -21,14 +21,14 @@ export default function Nav() {
 
           return (
             <li key={route.path}>
-              <TransitionLink
+              <Link
                 href={route.path}
                 title={route.description}
                 aria-current={isActive ? "page" : undefined}
                 className={cn("nav-link", isActive && "nav-link-active")}
               >
                 {route.name}
-              </TransitionLink>
+              </Link>
             </li>
           );
         })}

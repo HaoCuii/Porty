@@ -24,7 +24,7 @@ export default function ThoughtPage({ params }: Props) {
   if (!thought) notFound();
 
   return (
-    <article className="prose-page thought-enter">
+    <article className="prose-page">
       <h1 className="title mb-0">{thought.title}</h1>
       <time dateTime={thought.date} className="block leading-7 text-muted">
         {formatDate(thought.date)}
