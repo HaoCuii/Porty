@@ -28,7 +28,7 @@
     --spin6: #45d0c0;
   }
 
-  /* alternate palettes for preview only — pick one with /theme <name>, see /help.
+  /* alternate palettes for preview only — pick one with /theme x, see /help.
      most keep harvest's near-black background; a few lean into the background tone
      their real-world namesake is actually known for, so they read as more than a
      recolor. */
@@ -1215,7 +1215,7 @@
       var name = (args && args[0] || '').toLowerCase();
       if (!name){
         print('themes: ' + THEMES.join(', ') + ' — current: ' + currentTheme, 'hint');
-        print('usage: /theme <name>', 'hint', true);
+        print('usage: /theme x', 'hint', true);
         return;
       }
       if (THEMES.indexOf(name) === -1){
