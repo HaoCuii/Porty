@@ -1,0 +1,1424 @@
+<title>club-signup-os</title>
+<style>
+  :root{
+    color-scheme: dark;
+    --bg: #000000;
+    --panel: #050505;
+    --panel-head: #0d0d0d;
+    --border: #262626;
+    --fg: #e6e6e2;
+    --fg-dim: #8a8a86;
+    --fg-dimmer: #4f4f4a;
+    --accent: #3ddc84;
+    --accent-soft: rgba(61,220,132,.18);
+    --gold: #c9a876;
+    --gold-soft: rgba(201,168,118,.16);
+    --error: #ff5c57;
+    --error-soft: rgba(255,92,87,.15);
+    --spin1: #3ddc84;
+    --spin2: #ff5c57;
+    --spin3: #ff6ac1;
+    --spin4: #b388ff;
+    --spin5: #5a9bf6;
+    --spin6: #45d0c0;
+  }
+
+  /* alternate palettes for preview only — pick one with /theme <name>, see /help.
+     most keep harvest's near-black background; a few lean into the background tone
+     their real-world namesake is actually known for, so they read as more than a
+     recolor. */
+  :root[data-theme-variant="nord"]{
+    --bg:#060a0d; --panel:#050809; --panel-head:#0b1116; --border:#1d2a33;
+    --accent:#88c0d0; --accent-soft: rgba(136,192,208,.18);
+    --gold:#ebcb8b; --gold-soft: rgba(235,203,139,.16);
+    --error:#bf616a; --error-soft: rgba(191,97,106,.18);
+    --spin1:#88c0d0; --spin2:#81a1c1; --spin3:#5e81ac; --spin4:#b48ead; --spin5:#a3be8c; --spin6:#ebcb8b;
+  }
+  :root[data-theme-variant="tokyo"]{
+    --bg:#0c0d16; --panel:#09091a; --panel-head:#101122; --border:#282a45;
+    --accent:#7aa2f7; --accent-soft: rgba(122,162,247,.18);
+    --gold:#e0af68; --gold-soft: rgba(224,175,104,.16);
+    --error:#f7768e; --error-soft: rgba(247,118,142,.18);
+    --spin1:#7aa2f7; --spin2:#bb9af7; --spin3:#7dcfff; --spin4:#9ece6a; --spin5:#e0af68; --spin6:#f7768e;
+  }
+  :root[data-theme-variant="solarized"]{
+    --bg:#00181f; --panel:#001b22; --panel-head:#00252e; --border:#0a3645;
+    --fg:#cdd8d8; --fg-dim:#6e8a8c; --fg-dimmer:#3f5558;
+    --accent:#2aa198; --accent-soft: rgba(42,161,152,.18);
+    --gold:#b58900; --gold-soft: rgba(181,137,0,.16);
+    --error:#dc322f; --error-soft: rgba(220,50,47,.18);
+    --spin1:#268bd2; --spin2:#2aa198; --spin3:#859900; --spin4:#b58900; --spin5:#cb4b16; --spin6:#d33682;
+  }
+  :root[data-theme-variant="gruvbox"]{
+    --bg:#131110; --panel:#0f0d0c; --panel-head:#191614; --border:#3c3836;
+    --accent:#83a598; --accent-soft: rgba(131,165,152,.18);
+    --gold:#fabd2f; --gold-soft: rgba(250,189,47,.16);
+    --error:#fb4934; --error-soft: rgba(251,73,52,.18);
+    --spin1:#83a598; --spin2:#8ec07c; --spin3:#b8bb26; --spin4:#fabd2f; --spin5:#fe8019; --spin6:#d3869b;
+  }
+  :root[data-theme-variant="catppuccin"]{
+    --bg:#0f0f17; --panel:#0c0c13; --panel-head:#15151f; --border:#302f42;
+    --accent:#cba6f7; --accent-soft: rgba(203,166,247,.18);
+    --gold:#f9e2af; --gold-soft: rgba(249,226,175,.16);
+    --error:#f38ba8; --error-soft: rgba(243,139,168,.18);
+    --spin1:#cba6f7; --spin2:#f5c2e7; --spin3:#fab387; --spin4:#a6e3a1; --spin5:#89dceb; --spin6:#89b4fa;
+  }
+
+  html, body{ height:100%; }
+  body{
+    background: var(--bg);
+  }
+
+  *{ box-sizing: border-box; }
+
+  .app{
+    min-height: 100%;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 20px 16px;
+    display:flex;
+    flex-direction:column;
+    font-family: 'JetBrains Mono','Fira Code',Consolas,'SFMono-Regular',Menlo,Monaco,monospace;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--fg);
+  }
+
+  .terminal{
+    position:relative;
+    flex:1;
+    min-height: 480px;
+    display:flex;
+    flex-direction:column;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    overflow:hidden;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.3), 0 30px 60px -20px rgba(0,0,0,.6);
+  }
+
+  .scanlines{
+    position:absolute; inset:0;
+    pointer-events:none;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.025) 0px,
+      rgba(255,255,255,0.025) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    mix-blend-mode: overlay;
+  }
+
+  .titlebar{
+    flex: none;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding: 8px 10px 8px 14px;
+    background: var(--panel-head);
+    border-bottom: 1px solid var(--border);
+  }
+  .titleleft{
+    flex:1;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    min-width:0;
+  }
+  .termicon{
+    color: var(--accent);
+    font-weight:700;
+    font-size:12px;
+  }
+  .titletext{
+    font-size:12px;
+    color: var(--fg-dim);
+    letter-spacing:.03em;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .winctrls{
+    display:flex;
+    align-items:center;
+    gap:4px;
+  }
+  .winbtn{
+    width:22px;
+    height:22px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:transparent;
+    border:none;
+    border-radius:3px;
+    color: var(--fg-dim);
+    font-size:12px;
+    line-height:1;
+    cursor:pointer;
+    font-family: inherit;
+  }
+  .winbtn:hover{ background: var(--border); color: var(--fg); }
+  .winbtn-close:hover{ background: var(--error); color:#fff; }
+
+  .output{
+    flex:1;
+    overflow-y:auto;
+    padding: 16px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--fg-dimmer) transparent;
+  }
+  .output::-webkit-scrollbar{ width:9px; }
+  .output::-webkit-scrollbar-thumb{ background: var(--fg-dimmer); border-radius:6px; }
+
+  .line{
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin: 0 0 2px 0;
+  }
+  .line.gap{ margin-bottom: 12px; }
+  .line.boot{ color: var(--fg-dimmer); }
+  .line.system{ color: var(--fg); }
+  .line.hint{ color: var(--fg-dim); }
+  .line.echo{ color: var(--fg-dim); }
+  .line.echo .promptpart{ color: var(--accent); }
+  .line.system .promptpart{ color: var(--gold); }
+  .line.accent{ color: var(--accent); text-shadow: 0 0 10px var(--accent-soft); }
+  .line.info{ color: var(--gold); }
+  .line.error{ color: var(--error); text-shadow: 0 0 10px var(--error-soft); }
+
+  .select-block{ margin: 4px 0 2px 2px; }
+  .selectRow{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding: 6px 6px;
+    border-radius: 3px;
+    color: var(--fg-dim);
+    cursor: pointer;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .selectRow:hover{ background: rgba(255,255,255,.04); }
+  .selectRow.active{ color: var(--fg); background: var(--accent-soft); }
+  .selectRow.dragging{ position:relative; z-index:5; opacity:.9; background: var(--accent-soft); box-shadow: 0 6px 16px rgba(0,0,0,.45); }
+  .selectRow.dropTarget{ outline: 1px dashed var(--accent); outline-offset: -1px; }
+  .selectMarker{ color: var(--accent); width:14px; flex:none; display:inline-block; }
+  .selectNum{ color: var(--fg-dimmer); min-width:22px; flex:none; }
+  .selectRow.active .selectNum{ color: var(--accent); }
+  .selectLabel{ min-width:0; flex:1; overflow-wrap:break-word; }
+
+  .rankButtons{ display:flex; gap:4px; flex:none; margin-left:auto; padding-left:8px; }
+  .rankMoveBtn{
+    flex:none;
+    width:26px;
+    height:26px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:transparent;
+    border:1px solid var(--border);
+    border-radius:4px;
+    color: var(--fg-dim);
+    font-size:10px;
+    line-height:1;
+    cursor:pointer;
+    font-family: inherit;
+    padding:0;
+  }
+  .rankMoveBtn:hover{ background: var(--border); color: var(--fg); }
+  .rankMoveBtn:active{ background: var(--accent-soft); color: var(--accent); }
+
+  .rankActions{ display:flex; gap:10px; margin: 6px 0 2px 2px; }
+  .rankActionBtn{
+    font-family: inherit;
+    font-size: inherit;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 5px 12px;
+    cursor: pointer;
+  }
+  .rankActionBtn.confirm{ color: var(--accent); border-color: var(--accent-soft); }
+  .rankActionBtn.confirm:hover{ background: var(--accent-soft); }
+  .rankActionBtn.cancel{ color: var(--fg-dim); }
+  .rankActionBtn.cancel:hover{ background: var(--border); color: var(--fg); }
+
+  .summary{ margin: 6px 0 2px 2px; }
+  .summaryRow{ display:flex; gap:6px 14px; flex-wrap:wrap; }
+  .summaryKey{ min-width:90px; flex:none; color: var(--gold); }
+  .summaryVal{ color: var(--fg); min-width:0; overflow-wrap:break-word; flex:1 1 180px; }
+  .summaryVal.unset{ color: var(--fg-dimmer); font-style:italic; }
+
+  .compileStage{
+    margin: 8px 0 10px 0;
+    overflow-x: auto;
+  }
+  .asciiPrism{
+    margin:0;
+    display:inline-block;
+    font-family: inherit;
+    font-size: 11px;
+    line-height: 13px;
+    letter-spacing: 0;
+    white-space: pre;
+  }
+  .asciiPrism .g{ color: #ffffff; text-shadow: 0 0 8px rgba(255,255,255,.55); }
+  .asciiPrism .c0{ color: var(--spin1); }
+  .asciiPrism .c1{ color: var(--spin2); }
+  .asciiPrism .c2{ color: var(--spin3); }
+  .asciiPrism .c3{ color: var(--spin4); }
+  .asciiPrism .c4{ color: var(--spin5); }
+  .asciiPrism .c5{ color: var(--spin6); }
+
+  form.inputRow{
+    flex:none;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding: 10px 14px;
+    border-top: 1px solid var(--border);
+    background: var(--panel);
+  }
+  form.inputRow.focused{
+    box-shadow: inset 0 1px 0 var(--accent-soft), inset 0 -1px 0 var(--accent-soft);
+  }
+  .promptlabel{
+    color: var(--accent);
+    white-space:nowrap;
+    user-select:none;
+  }
+  #cmdInput{
+    flex:1;
+    min-width:0;
+    background:transparent;
+    border:none;
+    outline:none;
+    color: var(--fg);
+    font: inherit;
+    caret-color: var(--accent);
+  }
+  #cmdInput::placeholder{ color: var(--fg-dimmer); }
+  .srOnly{
+    position:absolute; width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .scanlines{ display:none; }
+  }
+
+  @media (max-width: 480px){
+    .app{ font-size:13px; padding:14px 10px; }
+    .terminal{ min-height: 420px; }
+    .summaryKey{ min-width:76px; }
+    .asciiPrism{ font-size: 8px; line-height: 10px; }
+    .selectRow{ gap:6px; padding: 2px 4px; }
+    form.inputRow{ padding: 9px 10px; }
+  }
+
+  @media (max-width: 360px){
+    .app{ font-size:12px; padding:12px 8px; }
+    .asciiPrism{ font-size: 6.5px; line-height: 8px; }
+    .summaryKey{ min-width:64px; }
+  }
+
+  @media (max-height: 560px){
+    .terminal{ min-height: 320px; }
+  }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap">
+
+<div class="app">
+  <div class="terminal" id="terminal">
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="titlebar">
+      <div class="titleleft">
+        <span class="termicon" aria-hidden="true">&gt;_</span>
+        <span class="titletext">guest@programming-club: ~/signup</span>
+      </div>
+      <div class="winctrls">
+        <button type="button" class="winbtn" id="btnMin" aria-label="Minimize">&#x2212;</button>
+        <button type="button" class="winbtn" id="btnMax" aria-label="Maximize">&#x25A1;</button>
+        <button type="button" class="winbtn winbtn-close" id="btnClose" aria-label="Close">&#x2715;</button>
+      </div>
+    </div>
+    <div class="output" id="output" role="log" aria-live="polite" aria-atomic="false"></div>
+    <form class="inputRow" id="inputForm">
+      <label for="cmdInput" class="srOnly">Terminal input</label>
+      <span class="promptlabel" id="promptLabel">club:~$</span>
+      <input id="cmdInput" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="type here and press enter">
+    </form>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var DRAFT_KEY = 'pclub_signup_draft_v1';
+  var DRAFT_PERSISTENCE_ENABLED = false; // turn back on once you're done testing
+
+  var STEPS = [
+    {
+      key: 'name',
+      cmd: '/name',
+      label: 'name',
+      prompt: 'Enter your first and last name:',
+      hint: 'e.g. Ada Lovelace',
+      validate: function(raw){
+        var v = raw.trim().replace(/\s+/g, ' ');
+        if (!v) return { error: 'name cannot be empty' };
+        var parts = v.split(' ').filter(Boolean);
+        if (parts.length < 2) return { error: '"' + raw + '" — enter both a first and last name' };
+        if (!/^[a-zA-Z.'\-À-ſ ]+$/.test(v)) return { error: '"' + raw + '" contains characters a name shouldn\'t have' };
+        return { value: v };
+      }
+    },
+    {
+      key: 'email',
+      cmd: '/email',
+      label: 'email',
+      prompt: 'Enter your school email:',
+      hint: 'e.g. jane.doe@yourschool.edu',
+      validate: function(raw){
+        var v = raw.trim();
+        var re = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+        if (!v) return { error: 'email cannot be empty' };
+        if (!re.test(v)) return { error: '"' + raw + '" is not a valid email address' };
+        return { value: v };
+      }
+    },
+    {
+      key: 'grade',
+      cmd: '/grade',
+      label: 'grade',
+      type: 'select',
+      prompt: 'What grade are you in?',
+      options: [
+        { value: '9', label: '9th grade — freshman' },
+        { value: '10', label: '10th grade — sophomore' },
+        { value: '11', label: '11th grade — junior' },
+        { value: '12', label: '12th grade — senior' }
+      ]
+    },
+    {
+      key: 'experience',
+      cmd: '/experience',
+      label: 'experience',
+      type: 'select',
+      prompt: 'How much experience do you have with programming?',
+      options: [
+        { value: 'none', label: 'I have no experience' },
+        { value: 'vibecoder', label: 'I’m a vibecoding demon, but don’t know how to code' },
+        { value: 'syntax-only', label: 'I understand syntax and how to write code, but haven’t completed any projects' },
+        { value: 'small-projects', label: 'I’ve completed a few small projects' },
+        { value: 'linus', label: 'I’m the second coming of Linus Torvalds' }
+      ]
+    },
+    {
+      key: 'interests',
+      cmd: '/interests',
+      label: 'interests',
+      type: 'rank',
+      prompt: 'What do you want to see in Programming Club?',
+      description: 'We’ll offer weekly lessons for each topic — rank these from most to least wanted.',
+      options: [
+        { value: 'ml', label: 'Machine learning' },
+        { value: 'webdev', label: 'Web development (frontend and backend)' },
+        { value: 'gamedev', label: 'Game development' },
+        { value: 'competitive', label: 'Competitive programming' },
+        { value: 'automation', label: 'Bots, automation, and scraping' },
+        { value: 'cv', label: 'Computer vision' },
+        { value: 'chill', label: 'Just chill around and build stuff' }
+      ]
+    }
+  ];
+
+  var state = {
+    phase: 'welcome',   // welcome | asking | review | done
+    mode: 'text',        // text | select
+    stepIndex: -1,
+    answers: {},
+    editingFromReview: false,
+    history: [],
+    historyIndex: -1
+  };
+  var selectState = null;
+  var rankState = null;
+  var THEMES = ['harvest', 'nord', 'tokyo', 'solarized', 'gruvbox', 'catppuccin'];
+  var currentTheme = 'harvest';
+
+  var $output = document.getElementById('output');
+  var $form = document.getElementById('inputForm');
+  var $input = document.getElementById('cmdInput');
+  var $promptLabel = document.getElementById('promptLabel');
+  var $terminal = document.getElementById('terminal');
+
+  function scrollToBottom(){
+    $output.scrollTop = $output.scrollHeight;
+  }
+
+  function print(text, cls, gap){
+    var div = document.createElement('div');
+    div.className = 'line' + (cls ? ' ' + cls : '') + (gap ? ' gap' : '');
+    div.textContent = text;
+    $output.appendChild(div);
+    scrollToBottom();
+    return div;
+  }
+
+  function printRich(nodeBuilder, cls, gap){
+    var div = document.createElement('div');
+    div.className = 'line' + (cls ? ' ' + cls : '') + (gap ? ' gap' : '');
+    nodeBuilder(div);
+    $output.appendChild(div);
+    scrollToBottom();
+    return div;
+  }
+
+  function wait(ms){
+    return new Promise(function(resolve){
+      if (reduceMotion) return resolve();
+      setTimeout(resolve, ms);
+    });
+  }
+
+  async function printSequence(lines){
+    for (var i = 0; i < lines.length; i++){
+      print(lines[i][0], lines[i][1]);
+      await wait(lines[i][2] || 160);
+    }
+  }
+
+  function currentStep(){
+    return STEPS[state.stepIndex];
+  }
+
+  function promptLabel(){
+    if (state.phase === 'asking' && currentStep()){
+      return 'club:~/signup/' + currentStep().label + '$';
+    }
+    if (state.phase === 'review') return 'club:~/signup/review$';
+    if (state.phase === 'compiling') return 'club:~/signup/compile$';
+    if (state.phase === 'done') return 'club:~$';
+    return 'club:~$';
+  }
+
+  function renderPrompt(){
+    $promptLabel.textContent = promptLabel();
+  }
+
+  function echo(raw){
+    printRich(function(div){
+      var p = document.createElement('span');
+      p.className = 'promptpart';
+      p.textContent = promptLabel() + ' ';
+      div.appendChild(p);
+      div.appendChild(document.createTextNode(raw));
+    }, 'echo');
+  }
+
+  function saveDraft(){
+    if (!DRAFT_PERSISTENCE_ENABLED) return;
+    try{
+      localStorage.setItem(DRAFT_KEY, JSON.stringify({
+        phase: state.phase,
+        stepIndex: state.stepIndex,
+        answers: state.answers
+      }));
+    } catch(e){ /* storage unavailable — draft just won't persist */ }
+  }
+
+  function loadDraft(){
+    if (!DRAFT_PERSISTENCE_ENABLED) return null;
+    try{
+      var raw = localStorage.getItem(DRAFT_KEY);
+      if (!raw) return null;
+      return JSON.parse(raw);
+    } catch(e){ return null; }
+  }
+
+  function clearDraft(){
+    if (!DRAFT_PERSISTENCE_ENABLED) return;
+    try{ localStorage.removeItem(DRAFT_KEY); } catch(e){}
+  }
+
+  function askCurrentStep(){
+    var step = currentStep();
+    if (step.type === 'select'){
+      beginSelect(step);
+      return;
+    }
+    if (step.type === 'rank'){
+      beginRank(step);
+      return;
+    }
+    print(step.prompt, 'system');
+    print('[' + step.hint + ']', 'hint', true);
+    renderPrompt();
+  }
+
+  var activeSelectBlockEl = null;
+  var activeRankBlockEl = null;
+  var rankDrag = null;
+
+  function isActiveSelect(step){
+    return state.mode === 'select' && selectState && selectState.step === step;
+  }
+  function isActiveRank(step){
+    return state.mode === 'rank' && rankState && rankState.step === step;
+  }
+
+  function renderSelectBlock(step){
+    var wrap = document.createElement('div');
+    wrap.className = 'line select-block';
+    step.options.forEach(function(opt, i){
+      var row = document.createElement('div');
+      row.className = 'selectRow' + (i === selectState.index ? ' active' : '');
+      var marker = document.createElement('span');
+      marker.className = 'selectMarker';
+      marker.textContent = (i === selectState.index) ? '❯' : ' ';
+      var num = document.createElement('span');
+      num.className = 'selectNum';
+      num.textContent = (i + 1) + ')';
+      var label = document.createElement('span');
+      label.className = 'selectLabel';
+      label.textContent = opt.label;
+      row.appendChild(marker);
+      row.appendChild(num);
+      row.appendChild(label);
+      row.addEventListener('click', function(){
+        if (!isActiveSelect(step)) return;
+        selectState.index = i;
+        updateSelectHighlight();
+        confirmSelect();
+      });
+      wrap.appendChild(row);
+    });
+    $output.appendChild(wrap);
+    scrollToBottom();
+    return wrap;
+  }
+
+  function updateSelectHighlight(){
+    var block = activeSelectBlockEl;
+    if (!block) return;
+    var rows = block.querySelectorAll('.selectRow');
+    rows.forEach(function(row, i){
+      var active = i === selectState.index;
+      row.classList.toggle('active', active);
+      row.querySelector('.selectMarker').textContent = active ? '❯' : ' ';
+    });
+  }
+
+  function beginSelect(step){
+    print(step.prompt, 'system');
+    selectState = { step: step, index: 0 };
+    activeSelectBlockEl = renderSelectBlock(step);
+    print('[tap an option, or use ↑/↓ and Enter]', 'hint', true);
+    state.mode = 'select';
+    $input.readOnly = true;
+    $input.value = '';
+    $input.placeholder = 'tap an option above, or ↑ ↓ enter';
+    renderPrompt();
+    $input.focus();
+  }
+
+  function confirmSelect(){
+    var step = selectState.step;
+    var opt = step.options[selectState.index];
+    state.answers[step.key] = opt.value;
+    print('accepted — ' + step.label + ': ' + opt.value, 'accent', true);
+    exitSelectMode();
+    advanceAfterAnswer();
+  }
+
+  function cancelSelect(){
+    print('selection cancelled — type /grade to try again, or /help for commands.', 'hint');
+    exitSelectMode();
+    renderPrompt();
+  }
+
+  function exitSelectMode(){
+    state.mode = 'text';
+    $input.readOnly = false;
+    $input.placeholder = 'type here and press enter';
+    selectState = null;
+  }
+
+  function renderRankBlock(step){
+    var wrap = document.createElement('div');
+    wrap.className = 'line select-block';
+    $output.appendChild(wrap);
+
+    var actions = document.createElement('div');
+    actions.className = 'line rankActions';
+    var confirmBtn = document.createElement('button');
+    confirmBtn.type = 'button';
+    confirmBtn.className = 'rankActionBtn confirm';
+    confirmBtn.textContent = '✓ confirm ranking';
+    confirmBtn.addEventListener('click', function(){
+      if (!isActiveRank(step)) return;
+      confirmRank();
+    });
+    var cancelBtn = document.createElement('button');
+    cancelBtn.type = 'button';
+    cancelBtn.className = 'rankActionBtn cancel';
+    cancelBtn.textContent = 'cancel';
+    cancelBtn.addEventListener('click', function(){
+      if (!isActiveRank(step)) return;
+      cancelRank();
+    });
+    actions.appendChild(confirmBtn);
+    actions.appendChild(cancelBtn);
+    $output.appendChild(actions);
+
+    scrollToBottom();
+    return wrap;
+  }
+
+  function startRankDrag(e, row, pos, step){
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    if (!isActiveRank(step)) return;
+    var rows = Array.prototype.slice.call(activeRankBlockEl.querySelectorAll('.selectRow'));
+    var metas = rows.map(function(r, i){
+      var rect = r.getBoundingClientRect();
+      return { pos: i, top: rect.top, height: rect.height };
+    });
+    rankDrag = { pos: pos, pointerId: e.pointerId, el: row, startY: e.clientY, metas: metas, lastTarget: pos, step: step };
+    row.classList.add('dragging');
+    try { row.setPointerCapture(e.pointerId); } catch (err) {}
+    e.preventDefault();
+  }
+
+  function onRankPointerMove(e){
+    if (!rankDrag || e.pointerId !== rankDrag.pointerId) return;
+    var delta = e.clientY - rankDrag.startY;
+    rankDrag.el.style.transform = 'translateY(' + delta + 'px)';
+    var y = e.clientY;
+    var target = rankDrag.metas[rankDrag.metas.length - 1].pos;
+    for (var i = 0; i < rankDrag.metas.length; i++){
+      if (y < rankDrag.metas[i].top + rankDrag.metas[i].height / 2){
+        target = rankDrag.metas[i].pos;
+        break;
+      }
+    }
+    rankDrag.lastTarget = target;
+    var rows = Array.prototype.slice.call(activeRankBlockEl.querySelectorAll('.selectRow'));
+    rows.forEach(function(r, i){
+      r.classList.toggle('dropTarget', i === target && i !== rankDrag.pos);
+    });
+  }
+
+  function onRankPointerUp(e){
+    if (!rankDrag || e.pointerId !== rankDrag.pointerId) return;
+    var from = rankDrag.pos, to = rankDrag.lastTarget;
+    rankDrag.el.classList.remove('dragging');
+    rankDrag.el.style.transform = '';
+    rankDrag = null;
+    if (!rankState) return;
+    if (from !== to){
+      var val = rankState.order.splice(from, 1)[0];
+      rankState.order.splice(to, 0, val);
+      rankState.cursor = to;
+    }
+    updateRankBlock();
+  }
+
+  function updateRankBlock(){
+    var block = activeRankBlockEl;
+    if (!block) return;
+    block.innerHTML = '';
+    var step = rankState.step;
+    rankState.order.forEach(function(optIdx, pos){
+      var opt = step.options[optIdx];
+      var row = document.createElement('div');
+      row.className = 'selectRow' + (pos === rankState.cursor ? ' active' : '');
+      var marker = document.createElement('span');
+      marker.className = 'selectMarker';
+      marker.textContent = (pos === rankState.cursor) ? '❯' : ' ';
+      var num = document.createElement('span');
+      num.className = 'selectNum';
+      num.textContent = (pos + 1) + ')';
+      var label = document.createElement('span');
+      label.className = 'selectLabel';
+      label.textContent = opt.label;
+      var btns = document.createElement('span');
+      btns.className = 'rankButtons';
+      var upBtn = document.createElement('button');
+      upBtn.type = 'button';
+      upBtn.className = 'rankMoveBtn';
+      upBtn.textContent = '▲';
+      upBtn.setAttribute('aria-label', 'move up');
+      var downBtn = document.createElement('button');
+      downBtn.type = 'button';
+      downBtn.className = 'rankMoveBtn';
+      downBtn.textContent = '▼';
+      downBtn.setAttribute('aria-label', 'move down');
+      btns.appendChild(upBtn);
+      btns.appendChild(downBtn);
+
+      row.appendChild(marker);
+      row.appendChild(num);
+      row.appendChild(label);
+      row.appendChild(btns);
+      block.appendChild(row);
+
+      row.addEventListener('click', function(){
+        if (!isActiveRank(step)) return;
+        rankState.cursor = pos;
+        updateRankBlock();
+      });
+      row.addEventListener('pointerdown', function(e){
+        if (!isActiveRank(step)) return;
+        startRankDrag(e, row, pos, step);
+      });
+      row.addEventListener('pointermove', onRankPointerMove);
+      row.addEventListener('pointerup', onRankPointerUp);
+      row.addEventListener('pointercancel', onRankPointerUp);
+      upBtn.addEventListener('click', function(e){
+        e.stopPropagation();
+        if (!isActiveRank(step) || pos === 0) return;
+        var v = rankState.order.splice(pos, 1)[0];
+        rankState.order.splice(pos - 1, 0, v);
+        rankState.cursor = pos - 1;
+        updateRankBlock();
+      });
+      downBtn.addEventListener('click', function(e){
+        e.stopPropagation();
+        if (!isActiveRank(step) || pos === rankState.order.length - 1) return;
+        var v2 = rankState.order.splice(pos, 1)[0];
+        rankState.order.splice(pos + 1, 0, v2);
+        rankState.cursor = pos + 1;
+        updateRankBlock();
+      });
+    });
+  }
+
+  function beginRank(step){
+    print(step.prompt, 'system');
+    if (step.description) print(step.description, 'hint');
+    rankState = { step: step, order: step.options.map(function(_, i){ return i; }), cursor: 0 };
+    activeRankBlockEl = renderRankBlock(step);
+    updateRankBlock();
+    print('[drag, tap ▲▼, or ↑/↓ + shift+↑/↓ · Enter to confirm]', 'hint', true);
+    state.mode = 'rank';
+    $input.readOnly = true;
+    $input.value = '';
+    $input.placeholder = 'drag rows, or tap confirm below';
+    renderPrompt();
+    $input.focus();
+  }
+
+  function confirmRank(){
+    var step = rankState.step;
+    var orderedValues = rankState.order.map(function(i){ return step.options[i].value; });
+    var orderedLabels = rankState.order.map(function(i){ return step.options[i].label; });
+    state.answers[step.key] = orderedValues;
+    print('accepted — ' + step.label + ': ' + orderedLabels.join(' > '), 'accent', true);
+    exitRankMode();
+    advanceAfterAnswer();
+  }
+
+  function cancelRank(){
+    print('ranking cancelled — type /interests to try again, or /help for commands.', 'hint');
+    exitRankMode();
+    renderPrompt();
+  }
+
+  function exitRankMode(){
+    state.mode = 'text';
+    $input.readOnly = false;
+    $input.placeholder = 'type here and press enter';
+    rankState = null;
+  }
+
+  function startFlow(opts){
+    opts = opts || {};
+    state.phase = 'asking';
+    state.stepIndex = 0;
+    if (!opts.keepAnswers) state.answers = {};
+    state.editingFromReview = false;
+    if (!opts.silent) print('Starting signup. Answer each prompt, or type /help any time.', 'info', true);
+    askCurrentStep();
+    saveDraft();
+  }
+
+  function advanceAfterAnswer(){
+    if (state.editingFromReview){
+      state.editingFromReview = false;
+      showReview();
+      return;
+    }
+    var next = state.stepIndex + 1;
+    if (next < STEPS.length){
+      state.stepIndex = next;
+      askCurrentStep();
+    } else {
+      showReview();
+    }
+    saveDraft();
+  }
+
+  function handleAnswer(raw){
+    var step = currentStep();
+    var result = step.validate(raw);
+    if (result.error){
+      print('error: ' + result.error, 'error');
+      return;
+    }
+    state.answers[step.key] = result.value;
+    print('accepted — ' + step.label + ': ' + result.value, 'accent', true);
+    advanceAfterAnswer();
+  }
+
+  function missingSteps(){
+    return STEPS.filter(function(s){ return !state.answers[s.key]; });
+  }
+
+  function showReview(){
+    state.phase = 'review';
+    print('Here’s what you’ve got so far:', 'system');
+    var box = document.createElement('div');
+    box.className = 'line summary';
+    STEPS.forEach(function(s){
+      var row = document.createElement('div');
+      row.className = 'summaryRow';
+      var k = document.createElement('span');
+      k.className = 'summaryKey';
+      k.textContent = s.label;
+      var v = document.createElement('span');
+      var val = state.answers[s.key];
+      if (val){
+        v.className = 'summaryVal';
+        if (Array.isArray(val)){
+          v.textContent = val.map(function(vv){
+            var opt = (s.options || []).filter(function(o){ return o.value === vv; })[0];
+            return opt ? opt.label : vv;
+          }).join(' > ');
+        } else {
+          v.textContent = val;
+        }
+      } else {
+        v.className = 'summaryVal unset';
+        v.textContent = '(not set)';
+      }
+      row.appendChild(k);
+      row.appendChild(v);
+      box.appendChild(row);
+    });
+    $output.appendChild(box);
+    scrollToBottom();
+    var missing = missingSteps();
+    if (missing.length){
+      print('Still missing: ' + missing.map(function(s){ return s.cmd; }).join(', '), 'hint', true);
+    } else {
+      print('Type /compile to finish, or /name /email /grade to change an answer.', 'hint', true);
+    }
+    renderPrompt();
+    saveDraft();
+  }
+
+  // ---- spinning ASCII prism (the ">_" badge, rendered as a rotating 3D card) ----
+  var PRISM_COLS = 64, PRISM_ROWS = 30;
+  var PRISM_HX = 1.5, PRISM_HY = 0.95, PRISM_HZ = 0.32;
+  var PRISM_CAM_D = 4.0;
+  var PRISM_COL_SCALE = 15.9, PRISM_ROW_SCALE = 8.45;
+  var PRISM_STEPS = 60;
+  var PRISM_RAMP = ' .:-=+*#%';
+  var PRISM_TILT = 0.28;
+  var PRISM_ROW_CLASSES = ['c0','c1','c2','c3','c4','c5'];
+
+  function vnormalize(v){
+    var len = Math.sqrt(v.x*v.x + v.y*v.y + v.z*v.z);
+    return { x: v.x/len, y: v.y/len, z: v.z/len };
+  }
+  function vdot(a, b){ return a.x*b.x + a.y*b.y + a.z*b.z; }
+  function rotateY(p, a){
+    var c = Math.cos(a), s = Math.sin(a);
+    return { x: p.x*c + p.z*s, y: p.y, z: -p.x*s + p.z*c };
+  }
+  function rotateX(p, a){
+    var c = Math.cos(a), s = Math.sin(a);
+    return { x: p.x, y: p.y*c - p.z*s, z: p.y*s + p.z*c };
+  }
+  function distToSegment(px, py, ax, ay, bx, by){
+    var dx = bx-ax, dy = by-ay;
+    var len2 = dx*dx + dy*dy;
+    var t = len2 ? Math.max(0, Math.min(1, ((px-ax)*dx+(py-ay)*dy)/len2)) : 0;
+    var cx = ax+t*dx, cy = ay+t*dy;
+    return Math.sqrt((px-cx)*(px-cx)+(py-cy)*(py-cy));
+  }
+  function sampleGlyph(u, v){
+    // cursor bar, lower-right
+    if (u > 0.52 && u < 0.84 && v > 0.60 && v < 0.72) return true;
+    // chevron ">" , left side
+    var cx = 0.16, cy = 0.5, armLen = 0.32, thick = 0.085;
+    if (distToSegment(u, v, cx, cy, cx+armLen*0.78, cy-armLen) < thick) return true;
+    if (distToSegment(u, v, cx, cy, cx+armLen*0.78, cy+armLen) < thick) return true;
+    return false;
+  }
+
+  var PRISM_LIGHT = vnormalize({ x: 0.35, y: 0.55, z: -0.7 });
+  var PRISM_FACES = [
+    { normal: {x:0,y:0,z:-1}, glyph: true,
+      point: function(u,v){ return { x: -PRISM_HX+u*2*PRISM_HX, y: -PRISM_HY+v*2*PRISM_HY, z: -PRISM_HZ }; } },
+    { normal: {x:0,y:0,z:1}, glyph: false,
+      point: function(u,v){ return { x: PRISM_HX-u*2*PRISM_HX, y: -PRISM_HY+v*2*PRISM_HY, z: PRISM_HZ }; } },
+    { normal: {x:1,y:0,z:0}, glyph: false,
+      point: function(u,v){ return { x: PRISM_HX, y: -PRISM_HY+v*2*PRISM_HY, z: PRISM_HZ-u*2*PRISM_HZ }; } },
+    { normal: {x:-1,y:0,z:0}, glyph: false,
+      point: function(u,v){ return { x: -PRISM_HX, y: -PRISM_HY+v*2*PRISM_HY, z: -PRISM_HZ+u*2*PRISM_HZ }; } },
+    { normal: {x:0,y:1,z:0}, glyph: false,
+      point: function(u,v){ return { x: -PRISM_HX+u*2*PRISM_HX, y: PRISM_HY, z: PRISM_HZ-v*2*PRISM_HZ }; } },
+    { normal: {x:0,y:-1,z:0}, glyph: false,
+      point: function(u,v){ return { x: -PRISM_HX+u*2*PRISM_HX, y: -PRISM_HY, z: -PRISM_HZ+v*2*PRISM_HZ }; } }
+  ];
+
+  function renderPrismFrame(angleY, angleX){
+    var cols = PRISM_COLS, rows = PRISM_ROWS;
+    var cellCount = cols*rows;
+    var depthBuf = new Float64Array(cellCount).fill(Infinity);
+    var charBuf = new Array(cellCount).fill(' ');
+    var glyphBuf = new Uint8Array(cellCount);
+
+    for (var f = 0; f < PRISM_FACES.length; f++){
+      var face = PRISM_FACES[f];
+      var n = rotateX(rotateY(face.normal, angleY), angleX);
+      var brightness = Math.max(0.12, vdot(n, PRISM_LIGHT));
+      var rampIdx = Math.min(PRISM_RAMP.length-1, Math.floor(brightness*PRISM_RAMP.length));
+      var bodyChar = PRISM_RAMP[rampIdx];
+      for (var ui = 0; ui <= PRISM_STEPS; ui++){
+        var u = ui/PRISM_STEPS;
+        for (var vi = 0; vi <= PRISM_STEPS; vi++){
+          var v = vi/PRISM_STEPS;
+          var p = face.point(u, v);
+          p = rotateX(rotateY(p, angleY), angleX);
+          var persp = PRISM_CAM_D/(PRISM_CAM_D+p.z);
+          var col = Math.round(cols/2 + p.x*persp*PRISM_COL_SCALE);
+          var row = Math.round(rows/2 - p.y*persp*PRISM_ROW_SCALE);
+          if (col < 0 || col >= cols || row < 0 || row >= rows) continue;
+          var idx = row*cols + col;
+          if (p.z < depthBuf[idx]){
+            depthBuf[idx] = p.z;
+            var isGlyph = face.glyph && sampleGlyph(u, v);
+            glyphBuf[idx] = isGlyph ? 1 : 0;
+            charBuf[idx] = isGlyph ? '#' : bodyChar;
+          }
+        }
+      }
+    }
+
+    var out = [];
+    for (var r = 0; r < rows; r++){
+      var rowStart = r*cols;
+      var bandClass = PRISM_ROW_CLASSES[Math.min(PRISM_ROW_CLASSES.length-1, Math.floor(r/rows*PRISM_ROW_CLASSES.length))];
+      var i = 0;
+      while (i < cols){
+        var isG = glyphBuf[rowStart+i];
+        var cls = isG ? 'g' : bandClass;
+        var j = i+1;
+        while (j < cols && glyphBuf[rowStart+j] === isG) j++;
+        var chunk = charBuf.slice(rowStart+i, rowStart+j).join('');
+        out.push('<span class="' + cls + '">' + chunk + '</span>');
+        i = j;
+      }
+      if (r < rows-1) out.push('\n');
+    }
+    return out.join('');
+  }
+
+  function buildPrismBlock(){
+    var wrap = document.createElement('div');
+    wrap.className = 'line compileStage';
+    var pre = document.createElement('pre');
+    pre.className = 'asciiPrism';
+    wrap.appendChild(pre);
+    $output.appendChild(wrap);
+    scrollToBottom();
+    return pre;
+  }
+
+  var prismGen = 0;
+  function spinPrismForever(pre){
+    var myGen = ++prismGen;
+    if (reduceMotion){
+      pre.innerHTML = renderPrismFrame(0.6, PRISM_TILT);
+      return;
+    }
+    var start = null;
+    function tick(now){
+      if (myGen !== prismGen) return; // a newer /compile superseded this one
+      if (start === null) start = now;
+      var t = now - start;
+      pre.innerHTML = renderPrismFrame(t*0.0032, PRISM_TILT);
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function showStatsBlock(gradeLabel){
+    var box = document.createElement('div');
+    box.className = 'line summary';
+    var rows = [
+      ['member', state.answers.name],
+      ['grade', gradeLabel],
+      ['status', 'COMPILED ✓']
+    ];
+    rows.forEach(function(r){
+      var row = document.createElement('div');
+      row.className = 'summaryRow';
+      var k = document.createElement('span');
+      k.className = 'summaryKey';
+      k.textContent = r[0];
+      var v = document.createElement('span');
+      v.className = 'summaryVal';
+      v.textContent = r[1];
+      row.appendChild(k);
+      row.appendChild(v);
+      box.appendChild(row);
+    });
+    $output.appendChild(box);
+    scrollToBottom();
+  }
+
+  async function animateProgressBar(){
+    var el = print('', 'accent');
+    var width = 28;
+    var pct = 0;
+    while (pct < 100){
+      pct = Math.min(100, pct + 3 + Math.floor(Math.random()*6));
+      var filled = Math.round(width*pct/100);
+      el.textContent = '[' + '█'.repeat(filled) + '░'.repeat(width-filled) + '] ' + pct + '%';
+      scrollToBottom();
+      if (reduceMotion) continue;
+      await wait(55 + Math.random()*55);
+    }
+  }
+
+  async function compileSignup(){
+    var missing = missingSteps();
+    if (missing.length){
+      print('error: missing required fields — ' + missing.map(function(s){ return s.cmd; }).join(', '), 'error');
+      return;
+    }
+    state.phase = 'compiling';
+    $input.readOnly = true;
+    $input.placeholder = 'compiling...';
+    renderPrompt();
+    print('compiling signup...', 'system');
+    await animateProgressBar();
+    print('build succeeded', 'accent', true);
+
+    var pre = buildPrismBlock();
+    spinPrismForever(pre);
+    await wait(reduceMotion ? 0 : 900);
+
+    var gradeStep = STEPS.filter(function(s){ return s.key === 'grade'; })[0];
+    var gradeOpt = gradeStep.options.filter(function(o){ return o.value === state.answers.grade; })[0];
+    showStatsBlock(gradeOpt ? gradeOpt.label : state.answers.grade);
+
+    var firstName = state.answers.name.split(' ')[0];
+    print('Signup complete. Welcome to the club, ' + firstName + '.', 'accent', true);
+    print('Watch your inbox at ' + state.answers.email + ' for meeting details.', 'system');
+    print('Type /start to sign up someone else on this device.', 'hint', true);
+
+    state.phase = 'done';
+    $input.readOnly = false;
+    $input.placeholder = 'type here and press enter';
+    renderPrompt();
+    clearDraft();
+  }
+
+  function printHelp(){
+    var rows = [
+      ['/help', 'show this list'],
+      ['/start', 'begin (or restart) the signup'],
+      ['/name', 'set or edit your name'],
+      ['/email', 'set or edit your school email'],
+      ['/grade', 'set or edit your grade'],
+      ['/experience', 'set or edit your experience level'],
+      ['/interests', 'rank what you want to see in the club'],
+      ['/review', 'show your current answers'],
+      ['/compile', 'compile + finalize your signup'],
+      ['/clear', 'clear the screen'],
+      ['/theme', 'preview a different color scheme']
+    ];
+    print('AVAILABLE COMMANDS', 'info', true);
+    rows.forEach(function(r){
+      printRich(function(div){
+        var c = document.createElement('span');
+        c.className = 'promptpart';
+        c.textContent = r[0];
+        div.appendChild(c);
+        div.appendChild(document.createTextNode('   ' + r[1]));
+      }, 'system');
+    });
+    print('', 'system');
+    print('Tip: press Tab to autocomplete a command, Up/Down to reuse a previous line.', 'hint', true);
+  }
+
+  var COMMANDS = {
+    '/help': function(){ printHelp(); },
+    '/start': function(){ startFlow(); },
+    '/review': function(){
+      if (state.phase === 'welcome'){
+        print('Nothing to review yet — type /start to begin.', 'hint');
+        return;
+      }
+      showReview();
+    },
+    '/compile': function(){
+      if (state.phase === 'welcome'){
+        print('Nothing to compile yet — type /start to begin.', 'hint');
+        return;
+      }
+      if (state.phase === 'compiling'){
+        print('already compiling — hang tight.', 'hint');
+        return;
+      }
+      compileSignup();
+    },
+    '/clear': function(){
+      $output.innerHTML = '';
+    },
+    '/whoami': function(){
+      print(state.answers.name ? state.answers.name : 'guest (you haven’t told us your name yet)', 'info');
+    },
+    '/sudo': function(){
+      print('error: permission denied — nice try though.', 'error');
+    },
+    '/exit': function(){
+      print('error: there is no escape from the club.', 'error');
+    },
+    '/quit': function(){ COMMANDS['/exit'](); },
+    '/theme': function(args){
+      var name = (args && args[0] || '').toLowerCase();
+      if (!name){
+        print('themes: ' + THEMES.join(', ') + ' — current: ' + currentTheme, 'hint');
+        print('usage: /theme <name>', 'hint', true);
+        return;
+      }
+      if (THEMES.indexOf(name) === -1){
+        print('error: unknown theme "' + name + '" — try: ' + THEMES.join(', '), 'error');
+        return;
+      }
+      currentTheme = name;
+      if (name === 'harvest'){
+        document.documentElement.removeAttribute('data-theme-variant');
+      } else {
+        document.documentElement.setAttribute('data-theme-variant', name);
+      }
+      print('theme set to ' + name + '.', 'accent');
+    }
+  };
+  STEPS.forEach(function(step){
+    COMMANDS[step.cmd] = function(){
+      state.editingFromReview = (state.phase === 'review');
+      state.phase = 'asking';
+      state.stepIndex = STEPS.indexOf(step);
+      askCurrentStep();
+    };
+  });
+
+  function handleCommand(raw){
+    var parts = raw.trim().split(/\s+/);
+    var cmd = parts[0].toLowerCase();
+    if (COMMANDS[cmd]){
+      COMMANDS[cmd](parts.slice(1));
+    } else {
+      print('command not found: ' + cmd + ' — type /help for a list of commands', 'error');
+    }
+  }
+
+  function handleLine(raw){
+    if (raw.trim().charAt(0) === '/'){
+      handleCommand(raw);
+      return;
+    }
+    if (state.phase === 'welcome'){
+      if (!raw.trim()){
+        startFlow();
+      } else {
+        startFlow({ silent: true });
+        handleAnswer(raw);
+      }
+      return;
+    }
+    if (state.phase === 'asking'){
+      handleAnswer(raw);
+      return;
+    }
+    if (state.phase === 'review'){
+      print('Type /compile to finish, or /name /email /grade to change an answer.', 'hint');
+      return;
+    }
+    if (state.phase === 'compiling'){
+      print('compiling — hang tight.', 'hint');
+      return;
+    }
+    if (state.phase === 'done'){
+      print('Already signed up! Type /start to sign up someone else.', 'hint');
+      return;
+    }
+  }
+
+  $form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (state.mode !== 'text'){ return; }
+    var raw = $input.value;
+    if (!raw && state.phase !== 'welcome'){ return; }
+    $input.value = '';
+    if (raw.trim()){
+      state.history.push(raw);
+      state.historyIndex = state.history.length;
+    }
+    if (raw.trim() || state.phase === 'welcome'){
+      echo(raw);
+    }
+    handleLine(raw);
+    renderPrompt();
+  });
+
+  $input.addEventListener('keydown', function(e){
+    if (state.mode === 'select'){
+      var opts = selectState.step.options;
+      if (e.key === 'ArrowUp'){
+        selectState.index = (selectState.index - 1 + opts.length) % opts.length;
+        updateSelectHighlight();
+      } else if (e.key === 'ArrowDown'){
+        selectState.index = (selectState.index + 1) % opts.length;
+        updateSelectHighlight();
+      } else if (e.key === 'Enter'){
+        confirmSelect();
+      } else if (e.key === 'Escape'){
+        cancelSelect();
+      } else if (/^[1-9]$/.test(e.key)){
+        var idx = parseInt(e.key, 10) - 1;
+        if (idx >= 0 && idx < opts.length){
+          selectState.index = idx;
+          updateSelectHighlight();
+          confirmSelect();
+        }
+      }
+      e.preventDefault();
+      return;
+    }
+    if (state.mode === 'rank'){
+      var n = rankState.order.length;
+      if (e.key === 'ArrowUp' && !e.shiftKey){
+        rankState.cursor = (rankState.cursor - 1 + n) % n;
+        updateRankBlock();
+      } else if (e.key === 'ArrowDown' && !e.shiftKey){
+        rankState.cursor = (rankState.cursor + 1) % n;
+        updateRankBlock();
+      } else if (e.key === 'ArrowUp' && e.shiftKey){
+        var cu = rankState.cursor;
+        if (cu > 0){
+          var tmpU = rankState.order[cu-1];
+          rankState.order[cu-1] = rankState.order[cu];
+          rankState.order[cu] = tmpU;
+          rankState.cursor = cu-1;
+          updateRankBlock();
+        }
+      } else if (e.key === 'ArrowDown' && e.shiftKey){
+        var cd = rankState.cursor;
+        if (cd < n-1){
+          var tmpD = rankState.order[cd+1];
+          rankState.order[cd+1] = rankState.order[cd];
+          rankState.order[cd] = tmpD;
+          rankState.cursor = cd+1;
+          updateRankBlock();
+        }
+      } else if (e.key === 'Enter'){
+        confirmRank();
+      } else if (e.key === 'Escape'){
+        cancelRank();
+      } else if (/^[1-9]$/.test(e.key)){
+        var ridx = parseInt(e.key, 10) - 1;
+        if (ridx >= 0 && ridx < n){
+          rankState.cursor = ridx;
+          updateRankBlock();
+        }
+      }
+      e.preventDefault();
+      return;
+    }
+    if (e.key === 'ArrowUp'){
+      if (state.history.length){
+        state.historyIndex = Math.max(0, state.historyIndex - 1);
+        $input.value = state.history[state.historyIndex] || '';
+        requestAnimationFrame(function(){ $input.setSelectionRange($input.value.length, $input.value.length); });
+      }
+      e.preventDefault();
+    } else if (e.key === 'ArrowDown'){
+      if (state.history.length){
+        state.historyIndex = Math.min(state.history.length, state.historyIndex + 1);
+        $input.value = state.history[state.historyIndex] || '';
+      }
+      e.preventDefault();
+    } else if (e.key === 'Tab'){
+      var v = $input.value;
+      if (v.charAt(0) === '/'){
+        var matches = Object.keys(COMMANDS).filter(function(c){ return c.indexOf(v) === 0; });
+        if (matches.length === 1){
+          $input.value = matches[0];
+        } else if (matches.length > 1){
+          print(matches.join('   '), 'hint');
+        }
+      }
+      e.preventDefault();
+    }
+  });
+
+  $terminal.addEventListener('click', function(e){
+    var sel = window.getSelection();
+    if (sel && sel.toString()) return;
+    $input.focus();
+  });
+  $input.addEventListener('focus', function(){ $form.classList.add('focused'); });
+  $input.addEventListener('blur', function(){ $form.classList.remove('focused'); });
+
+  function winButtonJoke(){
+    print('error: there is no escape from the club.', 'error');
+    $input.focus();
+  }
+  document.getElementById('btnMin').addEventListener('click', winButtonJoke);
+  document.getElementById('btnMax').addEventListener('click', winButtonJoke);
+  document.getElementById('btnClose').addEventListener('click', winButtonJoke);
+
+  async function boot(){
+    await printSequence([
+      ['booting club-signup-os v1.0.0...', 'boot', 140],
+      ['mounting /dev/curiosity... OK', 'boot', 140],
+      ['loading modules: git, caffeine, stackoverflow... OK', 'boot', 140],
+      ['checking your future for syntax errors... none found', 'boot', 140],
+      ['establishing secure connection to the clubhouse... OK', 'boot', 180]
+    ]);
+
+    var draft = loadDraft();
+    if (draft && draft.phase && draft.phase !== 'welcome' && draft.answers && Object.keys(draft.answers).length){
+      print('Welcome back — restoring your previous session.', 'info', true);
+      state.answers = draft.answers;
+      if (draft.phase === 'review' || draft.phase === 'done'){
+        showReview();
+      } else {
+        state.phase = 'asking';
+        state.stepIndex = Math.min(draft.stepIndex >= 0 ? draft.stepIndex : 0, STEPS.length - 1);
+        askCurrentStep();
+      }
+    } else {
+      print('Type /help for a list of commands.', 'system');
+      print('Ready when you are — type /start, or just hit ENTER to begin.', 'hint', true);
+    }
+    renderPrompt();
+    $input.focus();
+  }
+
+  boot();
+})();
+</script>
