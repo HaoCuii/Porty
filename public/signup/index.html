@@ -78,6 +78,7 @@
 
   .app{
     min-height: 100%;
+    height: var(--app-vh, 100%);
     max-width: 880px;
     margin: 0 auto;
     padding: 20px 16px;
@@ -436,6 +437,25 @@
     $output.scrollTop = $output.scrollHeight;
   }
 
+  // On mobile, the on-screen keyboard shrinks the visible (visual) viewport
+  // without necessarily shrinking the layout viewport — so a plain
+  // height:100% container doesn't react, and the input row (plus whatever
+  // question was just printed above it) can end up pushed behind the
+  // keyboard. Track the real visible height and keep the newest output
+  // scrolled into view whenever it changes.
+  function syncViewportHeight(){
+    var vv = window.visualViewport;
+    var h = vv ? vv.height : window.innerHeight;
+    document.documentElement.style.setProperty('--app-vh', h + 'px');
+    scrollToBottom();
+  }
+  if (window.visualViewport){
+    window.visualViewport.addEventListener('resize', syncViewportHeight);
+    window.visualViewport.addEventListener('scroll', syncViewportHeight);
+  }
+  window.addEventListener('resize', syncViewportHeight);
+  syncViewportHeight();
+
   function print(text, cls, gap){
     var div = document.createElement('div');
     div.className = 'line' + (cls ? ' ' + cls : '') + (gap ? ' gap' : '');
@@ -768,10 +788,10 @@
   function sampleGlyph(u, v){
     // cursor bar, lower-right
     if (u > 0.52 && u < 0.84 && v > 0.60 && v < 0.72) return true;
-    // chevron ">" , left side
-    var cx = 0.16, cy = 0.5, armLen = 0.32, thick = 0.085;
-    if (distToSegment(u, v, cx, cy, cx+armLen*0.78, cy-armLen) < thick) return true;
-    if (distToSegment(u, v, cx, cy, cx+armLen*0.78, cy+armLen) < thick) return true;
+    // chevron ">" — vertex on the right, arms open to the left
+    var cx = 0.42, cy = 0.5, armLen = 0.28, thick = 0.08;
+    if (distToSegment(u, v, cx, cy, cx-armLen*0.78, cy-armLen) < thick) return true;
+    if (distToSegment(u, v, cx, cy, cx-armLen*0.78, cy+armLen) < thick) return true;
     return false;
   }
 
@@ -1173,8 +1193,15 @@
     if (sel && sel.toString()) return;
     $input.focus();
   });
-  $input.addEventListener('focus', function(){ $form.classList.add('focused'); });
-  $input.addEventListener('blur', function(){ $form.classList.remove('focused'); });
+  $input.addEventListener('focus', function(){
+    $form.classList.add('focused');
+    setTimeout(syncViewportHeight, 50);
+    setTimeout(syncViewportHeight, 350);
+  });
+  $input.addEventListener('blur', function(){
+    $form.classList.remove('focused');
+    setTimeout(syncViewportHeight, 350);
+  });
 
   function winButtonJoke(){
     print('error: there is no escape from the club.', 'error');
