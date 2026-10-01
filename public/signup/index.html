@@ -84,7 +84,7 @@
     display:flex;
     flex-direction:column;
     font-family: 'JetBrains Mono','Fira Code',Consolas,'SFMono-Regular',Menlo,Monaco,monospace;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1.55;
     color: var(--fg);
   }
@@ -198,11 +198,13 @@
     display:flex;
     align-items:center;
     gap:8px;
-    padding: 6px 6px;
+    padding: 9px 8px;
+    min-height: 40px;
     border-radius: 3px;
     color: var(--fg-dim);
     cursor: pointer;
     touch-action: none;
+    -webkit-touch-callout: none;
     user-select: none;
     -webkit-user-select: none;
   }
@@ -215,11 +217,11 @@
   .selectRow.active .selectNum{ color: var(--accent); }
   .selectLabel{ min-width:0; flex:1; overflow-wrap:break-word; }
 
-  .rankButtons{ display:flex; gap:4px; flex:none; margin-left:auto; padding-left:8px; }
+  .rankButtons{ display:flex; gap:6px; flex:none; margin-left:auto; padding-left:8px; }
   .rankMoveBtn{
     flex:none;
-    width:26px;
-    height:26px;
+    width:36px;
+    height:36px;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -227,11 +229,12 @@
     border:1px solid var(--border);
     border-radius:4px;
     color: var(--fg-dim);
-    font-size:10px;
+    font-size:12px;
     line-height:1;
     cursor:pointer;
     font-family: inherit;
     padding:0;
+    touch-action: manipulation;
   }
   .rankMoveBtn:hover{ background: var(--border); color: var(--fg); }
   .rankMoveBtn:active{ background: var(--accent-soft); color: var(--accent); }
@@ -243,8 +246,10 @@
     background: transparent;
     border: 1px solid var(--border);
     border-radius: 4px;
-    padding: 5px 12px;
+    padding: 11px 16px;
+    min-height: 40px;
     cursor: pointer;
+    touch-action: manipulation;
   }
   .rankActionBtn.confirm{ color: var(--accent); border-color: var(--accent-soft); }
   .rankActionBtn.confirm:hover{ background: var(--accent-soft); }
@@ -317,17 +322,17 @@
   }
 
   @media (max-width: 480px){
-    .app{ font-size:12px; padding:12px 8px; }
-    .terminal{ min-height: 380px; }
+    .app{ font-size:10px; padding:10px 6px; }
+    .terminal{ min-height: 340px; }
     .summaryKey{ min-width:76px; }
-    .asciiPrism{ font-size: 7px; line-height: 9px; }
-    .selectRow{ gap:6px; padding: 2px 4px; }
+    .asciiPrism{ font-size: 6px; line-height: 7.5px; }
+    .selectRow{ gap:6px; }
     form.inputRow{ padding: 9px 10px; }
   }
 
   @media (max-width: 360px){
-    .app{ font-size:11px; padding:10px 8px; }
-    .asciiPrism{ font-size: 6px; line-height: 7.5px; }
+    .app{ font-size:9px; padding:8px 6px; }
+    .asciiPrism{ font-size: 5px; line-height: 6.5px; }
     .summaryKey{ min-width:64px; }
   }
 
