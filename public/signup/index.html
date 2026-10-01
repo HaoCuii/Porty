@@ -841,6 +841,10 @@
     return STEPS.filter(function(s){ return !state.answers[s.key]; });
   }
 
+  function allFieldCommands(){
+    return STEPS.map(function(s){ return s.cmd; }).join(' ');
+  }
+
   function answerLabel(step){
     var val = state.answers[step.key];
     if (val === undefined || val === null) return '';
@@ -910,7 +914,7 @@
     if (missing.length){
       print('Still missing: ' + missing.map(function(s){ return s.cmd; }).join(', '), 'hint', true);
     } else {
-      print('Type /compile to finish, or /name /email /grade to change an answer.', 'hint', true);
+      print('Type /compile to finish, or ' + allFieldCommands() + ' to change an answer.', 'hint', true);
     }
     renderPrompt();
     saveDraft();
@@ -1265,7 +1269,7 @@
       return;
     }
     if (state.phase === 'review'){
-      print('Type /compile to finish, or /name /email /grade to change an answer.', 'hint');
+      print('Type /compile to finish, or ' + allFieldCommands() + ' to change an answer.', 'hint');
       return;
     }
     if (state.phase === 'compiling'){
