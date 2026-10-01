@@ -221,6 +221,27 @@
   .summaryVal{ color: var(--fg); min-width:0; overflow-wrap:break-word; flex:1 1 180px; }
   .summaryVal.unset{ color: var(--fg-dimmer); font-style:italic; }
 
+  /* Enter usually finishes the signup, but on some mobile keyboards the
+     input occasionally stops registering taps/keys — this gives those
+     people a tappable way out. Hidden entirely on mouse/trackpad devices. */
+  .compileConfirmBtn{
+    display: none;
+    font-family: inherit;
+    font-size: inherit;
+    color: var(--accent);
+    background: transparent;
+    border: 1px solid var(--accent-soft);
+    border-radius: 4px;
+    padding: 11px 16px;
+    min-height: 40px;
+    margin: 8px 0 2px 2px;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  @media (hover: none) and (pointer: coarse){
+    .compileConfirmBtn{ display:block; width:100%; }
+  }
+
   .compileStage{
     margin: 8px 0 10px 0;
     overflow-x: auto;
@@ -699,6 +720,16 @@
       print('Still missing: ' + missing.map(function(s){ return s.cmd; }).join(', '), 'hint', true);
     } else {
       print('Enter or /compile to finish · edit: ' + allFieldCommands(), 'hint', true);
+      var confirmBtn = document.createElement('button');
+      confirmBtn.type = 'button';
+      confirmBtn.className = 'compileConfirmBtn';
+      confirmBtn.textContent = '✓ confirm signup';
+      confirmBtn.addEventListener('click', function(){
+        if (state.phase !== 'review') return;
+        compileSignup();
+      });
+      $output.appendChild(confirmBtn);
+      scrollToBottom();
     }
     renderPrompt();
     saveDraft();
