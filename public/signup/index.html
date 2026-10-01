@@ -69,7 +69,7 @@
     --spin1:#cba6f7; --spin2:#f5c2e7; --spin3:#fab387; --spin4:#a6e3a1; --spin5:#89dceb; --spin6:#89b4fa;
   }
 
-  html, body{ height:100%; }
+  html, body{ height:100%; overflow:hidden; }
   body{
     background: var(--bg);
   }
@@ -77,11 +77,14 @@
   *{ box-sizing: border-box; }
 
   .app{
-    min-height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     height: var(--app-vh, 100%);
     max-width: 880px;
     margin: 0 auto;
-    padding: 20px 16px;
+    padding: calc(20px + env(safe-area-inset-top, 0px)) 16px calc(20px + env(safe-area-inset-bottom, 0px));
     display:flex;
     flex-direction:column;
     font-family: 'JetBrains Mono','Fira Code',Consolas,'SFMono-Regular',Menlo,Monaco,monospace;
@@ -93,7 +96,7 @@
   .terminal{
     position:relative;
     flex:1;
-    min-height: 480px;
+    min-height: 0;
     display:flex;
     flex-direction:column;
     background: var(--panel);
@@ -170,6 +173,7 @@
 
   .output{
     flex:1;
+    min-height: 0;
     overflow-y:auto;
     padding: 16px;
     scrollbar-width: thin;
@@ -303,8 +307,7 @@
   }
 
   @media (max-width: 480px){
-    .app{ font-size:10px; padding:10px 6px; }
-    .terminal{ min-height: 340px; }
+    .app{ font-size:10px; padding: calc(10px + env(safe-area-inset-top, 0px)) 6px calc(10px + env(safe-area-inset-bottom, 0px)); }
     .summaryKey{ min-width:76px; }
     .asciiPrism{ font-size: 6px; line-height: 7.5px; }
     .selectRow{ gap:6px; }
@@ -312,13 +315,9 @@
   }
 
   @media (max-width: 360px){
-    .app{ font-size:9px; padding:8px 6px; }
+    .app{ font-size:9px; padding: calc(8px + env(safe-area-inset-top, 0px)) 6px calc(8px + env(safe-area-inset-bottom, 0px)); }
     .asciiPrism{ font-size: 5px; line-height: 6.5px; }
     .summaryKey{ min-width:64px; }
-  }
-
-  @media (max-height: 560px){
-    .terminal{ min-height: 320px; }
   }
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap">
