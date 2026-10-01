@@ -210,29 +210,10 @@
   }
   .selectRow:hover{ background: rgba(255,255,255,.04); }
   .selectRow.active{ color: var(--fg); background: var(--accent-soft); }
-  .selectRow.dragging{ position:relative; z-index:5; opacity:.9; background: var(--accent-soft); box-shadow: 0 6px 16px rgba(0,0,0,.45); }
-  .selectRow.dropTarget{ outline: 1px dashed var(--accent); outline-offset: -1px; }
   .selectMarker{ color: var(--accent); width:14px; flex:none; display:inline-block; }
   .selectNum{ color: var(--fg-dimmer); min-width:22px; flex:none; }
   .selectRow.active .selectNum{ color: var(--accent); }
   .selectLabel{ min-width:0; flex:1; overflow-wrap:break-word; }
-
-  .rankActions{ display:flex; gap:10px; margin: 6px 0 2px 2px; }
-  .rankActionBtn{
-    font-family: inherit;
-    font-size: inherit;
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 11px 16px;
-    min-height: 40px;
-    cursor: pointer;
-    touch-action: manipulation;
-  }
-  .rankActionBtn.confirm{ color: var(--accent); border-color: var(--accent-soft); }
-  .rankActionBtn.confirm:hover{ background: var(--accent-soft); }
-  .rankActionBtn.cancel{ color: var(--fg-dim); }
-  .rankActionBtn.cancel:hover{ background: var(--border); color: var(--fg); }
 
   .summary{ margin: 6px 0 2px 2px; }
   .summaryRow{ display:flex; gap:6px 14px; flex-wrap:wrap; }
@@ -408,23 +389,6 @@
         { value: 'small-projects', label: 'I’ve completed a few small projects' },
         { value: 'linus', label: 'I’m the second coming of Linus Torvalds' }
       ]
-    },
-    {
-      key: 'interests',
-      cmd: '/interests',
-      label: 'interests',
-      type: 'rank',
-      prompt: 'What do you want to see in Programming Club?',
-      description: 'We’ll offer weekly lessons for each topic — rank these from most to least wanted.',
-      options: [
-        { value: 'ml', label: 'Machine learning' },
-        { value: 'webdev', label: 'Web development (frontend and backend)' },
-        { value: 'gamedev', label: 'Game development' },
-        { value: 'competitive', label: 'Competitive programming' },
-        { value: 'automation', label: 'Bots, automation, and scraping' },
-        { value: 'cv', label: 'Computer vision' },
-        { value: 'chill', label: 'Just chill around and build stuff' }
-      ]
     }
   ];
 
@@ -438,7 +402,6 @@
     historyIndex: -1
   };
   var selectState = null;
-  var rankState = null;
   var THEMES = ['harvest', 'nord', 'tokyo', 'solarized', 'gruvbox', 'catppuccin'];
   var currentTheme = 'harvest';
 
@@ -543,24 +506,15 @@
       beginSelect(step);
       return;
     }
-    if (step.type === 'rank'){
-      beginRank(step);
-      return;
-    }
     print(step.prompt, 'system');
     print('[' + step.hint + ']', 'hint', true);
     renderPrompt();
   }
 
   var activeSelectBlockEl = null;
-  var activeRankBlockEl = null;
-  var rankDrag = null;
 
   function isActiveSelect(step){
     return state.mode === 'select' && selectState && selectState.step === step;
-  }
-  function isActiveRank(step){
-    return state.mode === 'rank' && rankState && rankState.step === step;
   }
 
   function renderSelectBlock(step){
@@ -609,7 +563,7 @@
     print(step.prompt, 'system');
     selectState = { step: step, index: 0 };
     activeSelectBlockEl = renderSelectBlock(step);
-    print('[tap an option, or use ↑/↓ and Enter]', 'hint', true);
+    print('[tap an option, or ↑/↓ + Enter]', 'hint', true);
     state.mode = 'select';
     $input.readOnly = true;
     $input.value = '';
@@ -641,170 +595,13 @@
     $input.focus();
   }
 
-  function renderRankBlock(step){
-    var wrap = document.createElement('div');
-    wrap.className = 'line select-block';
-    $output.appendChild(wrap);
-
-    var actions = document.createElement('div');
-    actions.className = 'line rankActions';
-    var confirmBtn = document.createElement('button');
-    confirmBtn.type = 'button';
-    confirmBtn.className = 'rankActionBtn confirm';
-    confirmBtn.textContent = '✓ confirm ranking';
-    confirmBtn.addEventListener('click', function(){
-      if (!isActiveRank(step)) return;
-      confirmRank();
-    });
-    var cancelBtn = document.createElement('button');
-    cancelBtn.type = 'button';
-    cancelBtn.className = 'rankActionBtn cancel';
-    cancelBtn.textContent = 'cancel';
-    cancelBtn.addEventListener('click', function(){
-      if (!isActiveRank(step)) return;
-      cancelRank();
-    });
-    actions.appendChild(confirmBtn);
-    actions.appendChild(cancelBtn);
-    $output.appendChild(actions);
-
-    scrollToBottom();
-    return wrap;
-  }
-
-  function startRankDrag(e, row, pos, step){
-    if (e.pointerType === 'mouse' && e.button !== 0) return;
-    if (!isActiveRank(step)) return;
-    var rows = Array.prototype.slice.call(activeRankBlockEl.querySelectorAll('.selectRow'));
-    var metas = rows.map(function(r, i){
-      var rect = r.getBoundingClientRect();
-      return { pos: i, top: rect.top, height: rect.height };
-    });
-    rankDrag = { pos: pos, pointerId: e.pointerId, el: row, startY: e.clientY, metas: metas, lastTarget: pos, step: step };
-    row.classList.add('dragging');
-    try { row.setPointerCapture(e.pointerId); } catch (err) {}
-    e.preventDefault();
-  }
-
-  function onRankPointerMove(e){
-    if (!rankDrag || e.pointerId !== rankDrag.pointerId) return;
-    var delta = e.clientY - rankDrag.startY;
-    rankDrag.el.style.transform = 'translateY(' + delta + 'px)';
-    var y = e.clientY;
-    var target = rankDrag.metas[rankDrag.metas.length - 1].pos;
-    for (var i = 0; i < rankDrag.metas.length; i++){
-      if (y < rankDrag.metas[i].top + rankDrag.metas[i].height / 2){
-        target = rankDrag.metas[i].pos;
-        break;
-      }
-    }
-    rankDrag.lastTarget = target;
-    var rows = Array.prototype.slice.call(activeRankBlockEl.querySelectorAll('.selectRow'));
-    rows.forEach(function(r, i){
-      r.classList.toggle('dropTarget', i === target && i !== rankDrag.pos);
-    });
-  }
-
-  function onRankPointerUp(e){
-    if (!rankDrag || e.pointerId !== rankDrag.pointerId) return;
-    var from = rankDrag.pos, to = rankDrag.lastTarget;
-    rankDrag.el.classList.remove('dragging');
-    rankDrag.el.style.transform = '';
-    rankDrag = null;
-    if (!rankState) return;
-    if (from !== to){
-      var val = rankState.order.splice(from, 1)[0];
-      rankState.order.splice(to, 0, val);
-      rankState.cursor = to;
-    }
-    updateRankBlock();
-  }
-
-  function updateRankBlock(){
-    var block = activeRankBlockEl;
-    if (!block) return;
-    block.innerHTML = '';
-    var step = rankState.step;
-    rankState.order.forEach(function(optIdx, pos){
-      var opt = step.options[optIdx];
-      var row = document.createElement('div');
-      row.className = 'selectRow' + (pos === rankState.cursor ? ' active' : '');
-      var marker = document.createElement('span');
-      marker.className = 'selectMarker';
-      marker.textContent = (pos === rankState.cursor) ? '❯' : ' ';
-      var num = document.createElement('span');
-      num.className = 'selectNum';
-      num.textContent = (pos + 1) + ')';
-      var label = document.createElement('span');
-      label.className = 'selectLabel';
-      label.textContent = opt.label;
-
-      row.appendChild(marker);
-      row.appendChild(num);
-      row.appendChild(label);
-      block.appendChild(row);
-
-      row.addEventListener('click', function(){
-        if (!isActiveRank(step)) return;
-        rankState.cursor = pos;
-        updateRankBlock();
-      });
-      row.addEventListener('pointerdown', function(e){
-        if (!isActiveRank(step)) return;
-        startRankDrag(e, row, pos, step);
-      });
-      row.addEventListener('pointermove', onRankPointerMove);
-      row.addEventListener('pointerup', onRankPointerUp);
-      row.addEventListener('pointercancel', onRankPointerUp);
-    });
-  }
-
-  function beginRank(step){
-    print(step.prompt, 'system');
-    if (step.description) print(step.description, 'hint');
-    rankState = { step: step, order: step.options.map(function(_, i){ return i; }), cursor: 0 };
-    activeRankBlockEl = renderRankBlock(step);
-    updateRankBlock();
-    print('[drag to reorder, or ↑/↓ + shift+↑/↓ · Enter to confirm]', 'hint', true);
-    state.mode = 'rank';
-    $input.readOnly = true;
-    $input.value = '';
-    $input.placeholder = 'drag rows, or tap confirm below';
-    renderPrompt();
-    $input.focus();
-  }
-
-  function confirmRank(){
-    var step = rankState.step;
-    var orderedValues = rankState.order.map(function(i){ return step.options[i].value; });
-    var orderedLabels = rankState.order.map(function(i){ return step.options[i].label; });
-    state.answers[step.key] = orderedValues;
-    print('accepted — ' + step.label + ': ' + orderedLabels.join(' > '), 'accent', true);
-    exitRankMode();
-    advanceAfterAnswer();
-  }
-
-  function cancelRank(){
-    print('ranking cancelled — type /interests to try again, or /help for commands.', 'hint');
-    exitRankMode();
-    renderPrompt();
-  }
-
-  function exitRankMode(){
-    state.mode = 'text';
-    $input.readOnly = false;
-    $input.placeholder = 'type here and press enter';
-    rankState = null;
-    $input.focus();
-  }
-
   function startFlow(opts){
     opts = opts || {};
     state.phase = 'asking';
     state.stepIndex = 0;
     if (!opts.keepAnswers) state.answers = {};
     state.editingFromReview = false;
-    if (!opts.silent) print('Starting signup. Answer each prompt, or type /help any time.', 'info', true);
+    if (!opts.silent) print('/help any time if you get stuck.', 'info', true);
     askCurrentStep();
     saveDraft();
   }
@@ -848,15 +645,9 @@
   function answerLabel(step){
     var val = state.answers[step.key];
     if (val === undefined || val === null) return '';
-    if (Array.isArray(val)){
-      return val.map(function(v){
-        var opt = (step.options || []).filter(function(o){ return o.value === v; })[0];
-        return opt ? opt.label : v;
-      }).join(' > ');
-    }
     if (step.options){
-      var opt2 = step.options.filter(function(o){ return o.value === val; })[0];
-      return opt2 ? opt2.label : val;
+      var opt = step.options.filter(function(o){ return o.value === val; })[0];
+      return opt ? opt.label : val;
     }
     return val;
   }
@@ -892,14 +683,7 @@
       var val = state.answers[s.key];
       if (val){
         v.className = 'summaryVal';
-        if (Array.isArray(val)){
-          v.textContent = val.map(function(vv){
-            var opt = (s.options || []).filter(function(o){ return o.value === vv; })[0];
-            return opt ? opt.label : vv;
-          }).join(' > ');
-        } else {
-          v.textContent = val;
-        }
+        v.textContent = val;
       } else {
         v.className = 'summaryVal unset';
         v.textContent = '(not set)';
@@ -914,7 +698,7 @@
     if (missing.length){
       print('Still missing: ' + missing.map(function(s){ return s.cmd; }).join(', '), 'hint', true);
     } else {
-      print('Press Enter or type /compile to finish, or ' + allFieldCommands() + ' to change an answer.', 'hint', true);
+      print('Enter or /compile to finish · edit: ' + allFieldCommands(), 'hint', true);
     }
     renderPrompt();
     saveDraft();
@@ -1157,7 +941,6 @@
       ['/email', 'set or edit your school email'],
       ['/grade', 'set or edit your grade'],
       ['/experience', 'set or edit your experience level'],
-      ['/interests', 'rank what you want to see in the club'],
       ['/review', 'show your current answers'],
       ['/compile', 'compile + finalize your signup'],
       ['/clear', 'clear the screen'],
@@ -1174,7 +957,7 @@
       }, 'system');
     });
     print('', 'system');
-    print('Tip: press Tab to autocomplete a command, Up/Down to reuse a previous line.', 'hint', true);
+    print('Tip: Tab autocompletes, Up/Down reuses a line.', 'hint', true);
   }
 
   var COMMANDS = {
@@ -1273,7 +1056,7 @@
         compileSignup();
         return;
       }
-      print('Press Enter or type /compile to finish, or ' + allFieldCommands() + ' to change an answer.', 'hint');
+      print('Enter or /compile to finish · edit: ' + allFieldCommands(), 'hint');
       return;
     }
     if (state.phase === 'compiling'){
@@ -1327,46 +1110,6 @@
       e.preventDefault();
       return;
     }
-    if (state.mode === 'rank'){
-      var n = rankState.order.length;
-      if (e.key === 'ArrowUp' && !e.shiftKey){
-        rankState.cursor = (rankState.cursor - 1 + n) % n;
-        updateRankBlock();
-      } else if (e.key === 'ArrowDown' && !e.shiftKey){
-        rankState.cursor = (rankState.cursor + 1) % n;
-        updateRankBlock();
-      } else if (e.key === 'ArrowUp' && e.shiftKey){
-        var cu = rankState.cursor;
-        if (cu > 0){
-          var tmpU = rankState.order[cu-1];
-          rankState.order[cu-1] = rankState.order[cu];
-          rankState.order[cu] = tmpU;
-          rankState.cursor = cu-1;
-          updateRankBlock();
-        }
-      } else if (e.key === 'ArrowDown' && e.shiftKey){
-        var cd = rankState.cursor;
-        if (cd < n-1){
-          var tmpD = rankState.order[cd+1];
-          rankState.order[cd+1] = rankState.order[cd];
-          rankState.order[cd] = tmpD;
-          rankState.cursor = cd+1;
-          updateRankBlock();
-        }
-      } else if (e.key === 'Enter'){
-        confirmRank();
-      } else if (e.key === 'Escape'){
-        cancelRank();
-      } else if (/^[1-9]$/.test(e.key)){
-        var ridx = parseInt(e.key, 10) - 1;
-        if (ridx >= 0 && ridx < n){
-          rankState.cursor = ridx;
-          updateRankBlock();
-        }
-      }
-      e.preventDefault();
-      return;
-    }
     if (e.key === 'ArrowUp'){
       if (state.history.length){
         state.historyIndex = Math.max(0, state.historyIndex - 1);
@@ -1412,11 +1155,9 @@
 
   async function boot(){
     await printSequence([
-      ['booting club-signup-os v1.0.0...', 'boot', 140],
-      ['mounting /dev/curiosity... OK', 'boot', 140],
-      ['loading modules: git, caffeine, stackoverflow... OK', 'boot', 140],
-      ['checking your future for syntax errors... none found', 'boot', 140],
-      ['establishing secure connection to the clubhouse... OK', 'boot', 180]
+      ['booting club-signup-os...', 'boot', 150],
+      ['loading modules... OK', 'boot', 150],
+      ['ready.', 'boot', 150]
     ]);
 
     var draft = loadDraft();
@@ -1431,8 +1172,7 @@
         askCurrentStep();
       }
     } else {
-      print('Type /help for a list of commands.', 'system');
-      print('Ready when you are — type /start, or just hit ENTER to begin.', 'hint', true);
+      print('/help for commands, or just hit ENTER to start.', 'hint', true);
     }
     renderPrompt();
     $input.focus();
