@@ -906,15 +906,14 @@
   var FORMSPREE_ENDPOINT = 'https://formspree.io/f/xgavqbql';
 
   function submitSignup(){
-    var payload = {
-      submitted_at: new Date().toISOString(),
-      _subject: 'New Programming Club signup: ' + state.answers.name
-    };
-    STEPS.forEach(function(s){ payload[s.key] = answerLabel(s); });
+    var fd = new FormData();
+    fd.append('_subject', 'New Programming Club signup: ' + state.answers.name);
+    STEPS.forEach(function(s){ fd.append(s.key, answerLabel(s)); });
+    fd.append('submitted_at', new Date().toISOString());
     return fetch(FORMSPREE_ENDPOINT, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(payload)
+      headers: { 'Accept': 'application/json' },
+      body: fd
     }).then(function(res){
       if (!res.ok) throw new Error('status ' + res.status);
     });
