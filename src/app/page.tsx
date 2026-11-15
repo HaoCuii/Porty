@@ -37,9 +37,7 @@ export default function AboutPage() {
       </p>
 
       <p>
-        Things that make me happy (in alphabetical order): badminton,
-        basketball, books, Brawl Stars, cats, family, friends, movies, piano,
-        Pokémon, seven, sushi, volleyball
+        Things that make me happy (in alphabetical order): Cordelius, corgi, Dominic Fike, friends, Interpretability in the Wild, Kokoro Deluxe Mazesoba, LeBron James, Mazda MX-5 Miata, pull-ups, salmon avocado roll, Salomon XT-6 Gore-Tex, seven, Soundcore Liberty 5 Pro, squeeze theorem, Sylveon, that one glades run above Jersey Cream Express, Viktor Axelsen, Yonex ASTROX 100 ZZ
       </p>
     </article>
   );
